@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/very_light_gray"
+    android:orientation="vertical"
+    tools:context="com.swifta.zenith.marketplace.Activities.AllDealsActivity">
+
+    <ProgressBar
+        android:id="@+id/all_deals_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/no_deals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:textColor="#49333333"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/all_deals_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:visibility="gone" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+</LinearLayout>
+<!-- From: file:/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/src/main/res/layout/fragment_all_deals.xml -->

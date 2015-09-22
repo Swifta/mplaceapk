@@ -1,0 +1,22 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="home_activity_image_layout">255dp</dimen>
+    <dimen name="home_activity_buttons_width">150dp</dimen>
+
+    <!-- Custom dimensions -->
+    <dimen name="four_dp">4dp</dimen>
+    <dimen name="eight_dp">8dp</dimen>
+    <dimen name="twenty_dp">20dp</dimen>
+    <dimen name="one_hundred_dp">100dp</dimen>
+    <dimen name="one_hundred_and_ten_dp">110dp</dimen>
+    <dimen name="one_thirty_dp">130dp</dimen>
+    <dimen name="one_forty_dp">140dp</dimen>
+    <dimen name="one_fifty_dp">150dp</dimen>
+    <dimen name="one_sixty_dp">160dp</dimen>
+    <dimen name="three_hundred_dp">300dp</dimen>
+    <dimen name="three_twenty_dp">320dp</dimen>
+    <dimen name="three_fifty_dp">350dp</dimen>
+    <dimen name="four_hundred_dp">400dp</dimen>
+</resources>

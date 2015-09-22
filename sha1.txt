@@ -1,0 +1,9 @@
+Certificate fingerprints:
+         MD5:  70:DB:C5:8F:EE:AD:77:EE:33:42:EB:B0:42:41:16:90
+         SHA1: B0:F4:A2:16:0D:22:FB:62:A4:2F:31:63:2B:2E:68:BA:F6:26:B6:DE
+         SHA256: FA:FE:4F:15:9F:8D:8A:CD:02:5F:3C:4E:7B:F8:27:EB:C0:8C:50:C8:7D:
+9C:87:F0:DD:52:A8:40:33:65:D8:58
+         Signature algorithm name: SHA256withRSA
+         Version: 3
+
+API KEY: AIzaSyBroaNLJRfoYfQ5S1yW0InFypEBdH0eiK0

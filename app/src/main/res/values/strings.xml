@@ -1,0 +1,202 @@
+<resources>
+    <string name="app_name">Marketplace</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Navigation Drawer Menu Items -->
+    <!-- Drawer Headers -->
+    <string name="navigation_header_1">Welcome!</string>
+    <string name="navigation_header_2">Sign in</string>
+    <string name="navigation_header_3">Sign out</string>
+
+    <!-- Subheaders -->
+    <string name="navigation_subheader_2">More</string>
+    <string name="navigation_subheader_3">About Marketplace</string>
+
+    <!-- Menu Items for Subheader 1 -->
+    <string name="navigation_item_11">Home</string>
+    <string name="navigation_item_12">Products</string>
+    <string name="navigation_item_13">Deals</string>
+    <string name="navigation_item_14">Auctions</string>
+    <string name="navigation_item_15">Store Credit</string>
+    <string name="navigation_item_16">Sold Out</string>
+    <string name="navigation_item_17">Stores</string>
+    <string name="navigation_item_18">Near Me</string>
+    <string name="navigation_item_19">Blog</string>
+
+    <!-- Menu Items for Subheader 2 -->
+    <string name="navigation_item_21">My Wishlist</string>
+    <string name="navigation_item_22">My Account</string>
+    <string name="navigation_item_23">My Orders</string>
+    <string name="navigation_item_24">My Referral List</string>
+    <string name="navigation_item_25">My Subscriptions</string>
+    <string name="navigation_item_26">My Bid History</string>
+    <string name="navigation_item_27">Club Membership</string>
+    <string name="navigation_item_28">Shipping Address</string>
+
+    <!-- Menu Items for Subheader 3 -->
+    <string name="navigation_item_31">Help &amp; About</string>
+
+    <string name="open_drawer">Open</string>
+    <string name="close_drawer">Close</string>
+
+    <!-- Home Activity -->
+    <string name="welcome_text">Welcome to Marketplace!</string>
+    <string name="already_a_customer">Already a customer?</string>
+    <string name="new_to_marketplace">New to Marketplace?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="register">Register</string>
+    <string name="get_started">Get started</string>
+    <string name="start_shopping">Start shopping</string>
+    <string name="start_shopping_text">Start shopping from the most popular categories</string>
+    <string name="shop_hot_products">Shop hot products</string>
+    <string name="shop_hot_deals">Shop hot deals</string>
+    <string name="shop_hot_auctions">Shop hot auctions</string>
+    <string name="view_all">View all</string>
+    <string name="deals_and_auctions">Deals and Auctions</string>
+    <string name="view_stores">Find stores closest to you!</string>
+    <string name="explore">Explore</string>
+    <string name="please_sign_in">Please sign in first.</string>
+    <string name="added_to_wishlist">" has been added to your wishlist."</string>
+    <string name="added_to_cart">" has been added to your cart."</string>
+    <string name="added_to_compare">" has been added to your compare list."</string>
+    <string name="bid_value">Bid value</string>
+
+    <!-- Register Activity -->
+    <string name="register_username">Username</string>
+    <string name="register_email">Email Address</string>
+    <string name="register_password">Password</string>
+    <string name="register_confirm_password">Confirm Password</string>
+    <string name="register_unique_identifier">Unique Identifier</string>
+    <string name="register_next">Next</string>
+    <string name="register_have_account">Already have an account?</string>
+    <string name="register_sign_in_here">Sign in here</string>
+    <string name="register_first_name">First Name</string>
+    <string name="register_last_name">Last Name</string>
+    <string name="register_gender">Gender</string>
+    <string name="register_city">City</string>
+    <string name="register_mobile_number">Mobile number</string>
+    <string name="register_terms">Read the Terms and Conditions</string>
+    <string name="register_terms_message">Lorem Ipsum Dolor is the standard text of the printing industry &#8230;
+        Lorem Ipsum Dolor is the standard text of the printing industry&#8230;</string>
+    <string name="register_agree">I agree to the terms and conditions.</string>
+    <string name="ok">OK</string>
+    <string name="register_submit">Submit</string>
+    <string name="register_back">Back</string>
+    <string name="register_account_info">Setting up your account...</string>
+    <!-- Edittext Errors -->
+    <string name="error_username">Please enter your username</string>
+    <string name="error_email">Please enter your email address</string>
+    <string name="error_valid_email">Please enter a valid email address</string>
+    <string name="error_password">Please enter your password</string>
+    <string name="error_short_password">Please enter a minimum of 6 characters</string>
+    <string name="error_confirm_password">Please confirm your password</string>
+    <string name="error_compare_password">The two passwords do not match! Please re-enter your password correctly.</string>
+    <string name="error_unique_identifier">Please enter your Unique Identifier</string>
+    <string name="error_firstname">Please enter your first name</string>
+    <string name="error_lastname">Please enter your last name</string>
+    <string name="error_mobile">Please enter your mobile number</string>
+    <string name="error_city">Please select your city</string>
+    <string name="error_gender">Please select your gender</string>
+    <string name="error_age_range">Please select your age range</string>
+    <string name="error_agree">Please agree to our terms and conditions.</string>
+    <string name="error_country">Please select your country</string>
+    <string name="country_name">Country</string>
+    <string name="city_name">City</string>
+    <!-- Arrays -->
+    <string-array name="gender_array">
+        <item>Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="age_range">
+        <item>Age Range</item>
+        <item>17 and below</item>
+        <item>18&#8211;25</item>
+        <item>26&#8211;35</item>
+        <item>36&#8211;45</item>
+        <item>46&#8211;65</item>
+        <item>66 and above</item>
+    </string-array>
+
+    <string-array name="country">
+        <item>Country</item>
+        <item>Nigeria</item>
+    </string-array>
+
+    <!-- Sign in Activity -->
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="sign_up_here">Sign up here</string>
+    <string name="request_password">Request your password</string>
+    <string name="enter_email_address">Enter your email address</string>
+    <string name="verify_account_info">Verifying your account information</string>
+    <string name="successful_login">Logged in successfully</string>
+
+    <!-- Product details Activity -->
+    <string name="price">Price</string>
+    <string name="discount">Discount:</string>
+    <string name="size">Size:</string>
+    <string name="similar_products">Similar products</string>
+    <string name="shipping_type">Shipping Type:</string>
+    <string name="category">Category</string>
+    <string name="time_left">Time remaining:</string>
+    <string name="description">Description</string>
+    <string name="store_info">Store Information</string>
+    <string name="view_details">View Details</string>
+    <string name="more_details">More Details</string>
+    <string name="share_product">Share Product</string>
+
+    <!-- Deals details Activity -->
+    <string name="similar_deals">Similar deals</string>
+    <string name="terms">Terms and Conditions:</string>
+    <string name="share_deal">Share Deal</string>
+
+    <!-- Auction details Activity -->
+    <string name="start_time">Start time:</string>
+    <string name="end_time">End time:</string>
+    <string name="retail_price">Retail Price:</string>
+    <string name="bid_values">Bid Value:</string>
+    <string name="auction_type">Auction Type(s):</string>
+    <string name="bid_history">Bid History</string>
+    <string name="shipping_info">Shipping Information:</string>
+    <string name="shipping_amount">Shipping Fee:</string>
+    <string name="share_auction">Share Auction</string>
+    <string name="last_bidder">Last Bidder:</string>
+    <string name="bid_amount">Bid Amount:</string>
+    <string name="similar_auction">Similar Auctions</string>
+
+    <!-- Network Connection -->
+    <string name="network_failure">Network failure</string>
+    <string name="working_data_connection">This application requires a working data connection.</string>
+    <string name="unable_to_connect">Unable to connect to server.</string>
+    <string name="try_again">Try again</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_home">Home</string>
+    <string name="title_activity_products">Products</string>
+    <string name="title_activity_deals">Deals</string>
+    <string name="title_activity_auctions">Auctions</string>
+    <string name="title_activity_store_credit">Store Credit</string>
+    <string name="title_activity_sold_out">Sold Out</string>
+    <string name="title_activity_near_me">Near Me</string>
+    <string name="title_activity_stores">Stores</string>
+    <string name="title_activity_blog">Blog</string>
+    <string name="title_activity_register">Sign Up</string>
+    <string name="title_activity_sign_in">Sign In</string>
+    <string name="title_activity_base_toolbar">BaseToolbarActivity</string>
+    <string name="title_activity_all_products">Products</string>
+    <string name="title_activity_category">Categories</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_product_details">Product Details</string>
+    <string name="title_activity_product_sub_category">Product</string>
+    <string name="title_activity_store_details">StoreDetailsActivity</string>
+    <string name="title_activity_all_deals">Deals</string>
+    <string name="title_activity_deals_details">Deal Details</string>
+    <string name="title_activity_auction_details">Auction Details</string>
+    <string name="title_activity_all_auction">Auctions</string>
+</resources>

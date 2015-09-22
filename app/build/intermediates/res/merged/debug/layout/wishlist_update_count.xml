@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingEnd="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp">
+
+    <ImageButton
+        android:id="@+id/wishlist_count_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
+        android:src="@drawable/ic_wishlist" />
+
+    <TextView
+        android:id="@+id/wishlist_count_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-12dp"
+        android:layout_marginStart="-12dp"
+        android:background="@android:color/black"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:textColor="@android:color/white"
+        android:textSize="10sp" />
+
+</LinearLayout><!-- From: file:/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/src/main/res/layout/wishlist_update_count.xml -->

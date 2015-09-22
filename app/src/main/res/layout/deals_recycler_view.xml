@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
+    android:layout_width="@dimen/one_sixty_dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/eight_dp"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one_fifty_dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/home_background" />
+
+    <TextView
+        android:id="@+id/deals_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/eight_dp"
+        android:layout_marginRight="@dimen/eight_dp"
+        android:layout_marginStart="@dimen/eight_dp"
+        android:layout_marginTop="@dimen/eight_dp"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/deals_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/four_dp"
+        android:layout_marginRight="@dimen/four_dp"
+        android:layout_marginStart="@dimen/four_dp"
+        android:layout_marginTop="@dimen/four_dp"
+        android:textColor="@android:color/black"
+        android:textSize="13.5sp" />
+
+    <TextView
+        android:id="@+id/discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/eight_dp"
+        android:layout_marginStart="@dimen/eight_dp"
+        android:layout_marginTop="@dimen/eight_dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/eight_dp"
+        android:layout_marginStart="@dimen/eight_dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/old_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_red_light" />
+
+        <TextView
+            android:id="@+id/new_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/eight_dp"
+            android:layout_marginStart="@dimen/eight_dp"
+            android:textColor="@android:color/holo_green_dark" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/eight_dp"
+        android:paddingLeft="@dimen/eight_dp">
+
+        <RatingBar
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:rating="0.0"
+            android:stepSize="0.5" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+            <ImageButton
+                android:id="@+id/popupmenu"
+                android:layout_width="30dp"
+                android:layout_height="@dimen/twenty_dp"
+                android:layout_marginEnd="@dimen/eight_dp"
+                android:layout_marginRight="@dimen/eight_dp"
+                android:clickable="true"
+                android:focusable="?attr/selectableItemBackground"
+                android:hapticFeedbackEnabled="true"
+                android:src="@drawable/ic_popup_menu" />
+        </FrameLayout>
+    </RelativeLayout>
+</LinearLayout>

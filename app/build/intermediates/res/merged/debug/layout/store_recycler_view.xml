@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
+    android:layout_width="@dimen/one_sixty_dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/eight_dp"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one_fifty_dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/home_background" />
+
+    <TextView
+        android:id="@+id/store_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/eight_dp"
+        android:layout_marginStart="@dimen/eight_dp"
+        android:layout_marginTop="@dimen/eight_dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/store_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/eight_dp"
+        android:layout_marginEnd="@dimen/eight_dp"
+        android:layout_marginLeft="@dimen/eight_dp"
+        android:layout_marginRight="@dimen/eight_dp"
+        android:layout_marginStart="@dimen/eight_dp" />
+
+</LinearLayout>
+<!-- From: file:/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/src/main/res/layout/store_recycler_view.xml -->

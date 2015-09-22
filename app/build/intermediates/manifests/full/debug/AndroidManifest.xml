@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.swifta.zenith.marketplace"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="23" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.HomeActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.DealsActivity"
+            android:label="@string/title_activity_deals" />
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.AuctionsActivity"
+            android:label="@string/title_activity_auctions" />
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.StoreCreditActivity"
+            android:label="@string/title_activity_store_credit" />
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.SoldOutActivity"
+            android:label="@string/title_activity_sold_out" />
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.NearActivity"
+            android:label="@string/title_activity_near_me" />
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.StoresActivity"
+            android:label="@string/title_activity_stores" />
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:parentActivityName="com.swifta.zenith.marketplace.Activities.HomeActivity"
+            android:theme="@style/BaseToolbarTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.HomeActivity" />
+        </activity>
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.SignInActivity"
+            android:label="@string/title_activity_sign_in"
+            android:parentActivityName="com.swifta.zenith.marketplace.Activities.HomeActivity"
+            android:theme="@style/BaseToolbarTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.HomeActivity" />
+        </activity>
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.AllProductsActivity"
+            android:label="@string/title_activity_all_products"
+            android:parentActivityName="com.swifta.zenith.marketplace.Activities.HomeActivity"
+            android:theme="@style/BaseToolbarTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.HomeActivity" />
+        </activity>
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.ProductCategoryActivity"
+            android:label="@string/title_activity_all_products" />
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.CategoryActivity"
+            android:label="@string/title_activity_category" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBroaNLJRfoYfQ5S1yW0InFypEBdH0eiK0" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.ProductDetailsActivity"
+            android:label="@string/title_activity_product_details" />
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.SubCategoryActivity"
+            android:label="@string/title_activity_product_sub_category" />
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.StoreDetailsActivity"
+            android:label="@string/title_activity_store_details" />
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.AllDealsActivity"
+            android:label="@string/title_activity_all_deals" >
+        </activity>
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.DealsDetailsActivity"
+            android:label="@string/title_activity_deals_details" >
+        </activity>
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.AuctionDetailsActivity"
+            android:label="@string/title_activity_auction_details" >
+        </activity>
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.AllAuctionActivity"
+            android:label="@string/title_activity_all_auction" >
+        </activity>
+    </application>
+
+</manifest>

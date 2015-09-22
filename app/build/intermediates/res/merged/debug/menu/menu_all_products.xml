@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.swifta.zenith.marketplace.Activities.AllProductsActivity">
+
+    <item
+        android:id="@+id/wishlist_badge"
+        android:icon="@drawable/ic_wishlist"
+        android:orderInCategory="1"
+        android:title="Wishlist"
+        app:actionLayout="@layout/wishlist_update_count"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/compare_badge"
+        android:icon="@drawable/ic_compare"
+        android:orderInCategory="2"
+        android:title="Compare"
+        app:actionLayout="@layout/compare_update_count"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/cart_badge"
+        android:icon="@drawable/ic_shopping_cart_white"
+        android:orderInCategory="3"
+        android:title="Cart"
+        app:actionLayout="@layout/cart_update_count"
+        app:showAsAction="always" />
+</menu>
+<!-- From: file:/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/src/main/res/menu/menu_all_products.xml -->

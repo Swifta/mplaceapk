@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/exploded-aar/com.android.support/customtabs/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e4a9d42c6d45eed4fd52f28dee859884131eae4c">
+        <dex dex="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/pre-dexed/debug/classes-c64f3d07f28ea0f10691a04c85eddf7ba5c1aa62.jar" />
+    </item>
+
+</items>
