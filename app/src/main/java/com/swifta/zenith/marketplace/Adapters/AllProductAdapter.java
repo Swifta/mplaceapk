@@ -19,14 +19,18 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.koushikdutta.ion.Ion;
-import com.swifta.zenith.marketplace.Activities.AllProductsActivity;
 import com.swifta.zenith.marketplace.Activities.BaseNavigationDrawerActivity;
 import com.swifta.zenith.marketplace.Activities.HomeActivity;
 import com.swifta.zenith.marketplace.Activities.ProductDetailsActivity;
 import com.swifta.zenith.marketplace.Activities.SignInActivity;
+import com.swifta.zenith.marketplace.Database.CartDatabase;
+import com.swifta.zenith.marketplace.Fragments.AllProductFragment;
+import com.swifta.zenith.marketplace.Fragments.NearProductsFragment;
+import com.swifta.zenith.marketplace.Fragments.ProductCategoryListFragment;
 import com.swifta.zenith.marketplace.R;
 import com.swifta.zenith.marketplace.Utils.Dictionary;
 import com.swifta.zenith.marketplace.Utils.JSONParser;
+import com.swifta.zenith.marketplace.Utils.UnicodeConverter;
 
 import java.util.List;
 
@@ -39,10 +43,12 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.Pr
     private PopupMenu popupMenu;
     private Menu menu;
     private Context context;
+    private int fragmentTag;
 
-    public AllProductAdapter(Context context, List<JSONParser> products) {
+    public AllProductAdapter(Context context, List<JSONParser> products, int fragmentTag) {
         this.products = products;
         this.context = context;
+        this.fragmentTag = fragmentTag;
     }
 
     @Override
@@ -74,13 +80,14 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.Pr
         // Loads the views with data from the JSON response
         holder.productName.setText(products.get(position).getProperty(Dictionary.dealTitle)
                 .toString());
+
         holder.discount.setText(products.get(position).getProperty(Dictionary.productDiscount)
                 .toString() + "% off");
 
         discount = products.get(position).getProperty(Dictionary.productDiscount).toString();
-        oldPrice = products.get(position).getProperty(Dictionary.currencySymbol)
-                .toString() + products.get(position).getProperty("deal_price").toString();
-        newPrice = products.get(position).getProperty(Dictionary.currencySymbol).toString() +
+        oldPrice = UnicodeConverter.getConversionResult(products.get(position).getProperty(Dictionary.currencySymbol).toString())
+                + products.get(position).getProperty("deal_price").toString();
+        newPrice = UnicodeConverter.getConversionResult(products.get(position).getProperty(Dictionary.currencySymbol).toString()) +
                 products.get(position).getProperty("deal_value").toString();
 
         comparePrices(discount, oldPrice, newPrice, holder.oldPrice, holder.newPrice);
@@ -130,19 +137,46 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.Pr
                             switch (menuItem.getItemId()) {
                                 case 1:
                                     HomeActivity.wishlistCount += 1;
-                                    AllProductsActivity.displayWishlistCount();
+
+                                    if (fragmentTag == 1) {
+                                        AllProductFragment.displayWishlistCount();
+                                    } else if (fragmentTag == 2) {
+                                        ProductCategoryListFragment.displayWishlistCount();
+                                    } else if (fragmentTag == 3) {
+                                        NearProductsFragment.displayWishlistCount();
+                                    }
+
                                     Snackbar.make(view, products.get(position).getProperty(Dictionary.dealTitle).toString()
                                             + context.getString(R.string.added_to_wishlist), Snackbar.LENGTH_SHORT).show();
                                     return true;
                                 case 2:
                                     HomeActivity.compareCount += 1;
-                                    AllProductsActivity.displayCompareCount();
+
+                                    if (fragmentTag == 1) {
+                                        AllProductFragment.displayCompareCount();
+                                    } else if (fragmentTag == 2) {
+                                        ProductCategoryListFragment.displayCompareCount();
+                                    } else if (fragmentTag == 3) {
+                                        NearProductsFragment.displayCompareCount();
+                                    }
                                     Snackbar.make(view, products.get(position).getProperty(Dictionary.dealTitle).toString()
                                             + context.getString(R.string.added_to_compare), Snackbar.LENGTH_SHORT).show();
                                     return true;
                                 case 3:
                                     HomeActivity.cartCount += 1;
-                                    AllProductsActivity.displayCartCount();
+
+                                    if (fragmentTag == 1) {
+                                        AllProductFragment.displayCartCount();
+                                    } else if (fragmentTag == 2) {
+                                        ProductCategoryListFragment.displayCartCount();
+                                    } else if (fragmentTag == 3) {
+                                        NearProductsFragment.displayCartCount();
+                                    }
+
+                                    // Creates a new CartDatabase instance with Sugar and saves an ArrayList in it
+                                    CartDatabase mDatabase = new CartDatabase(products.get(position).toString());
+                                    mDatabase.save();
+
                                     Snackbar.make(view, products.get(position).getProperty(Dictionary.dealTitle).toString()
                                             + context.getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
                                     return true;
@@ -165,7 +199,7 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.Pr
     }
 
     /**
-     * Ensures that both old prices and new prices are not displayed they not equal
+     * Ensures that when both old prices and new prices are equal(when there is no discount), they are not displayed
      **/
     private void comparePrices(String discount, String oldPrice, String newPrice,
                                TextView oldPriceText, TextView newPriceText) {

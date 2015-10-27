@@ -23,9 +23,9 @@ public class Dictionary {
     public static final String storeImage = "store_image";
     public static final String productStoreImage = "store_image_url";
     public static final String storeName = "store_name";
-    public static final String storeAddress1 = "address1";
+    public static final String address1 = "address1";
     public static final String storeType = "store_type";
-    public static final String storeAddress2 = "address2";
+    public static final String address2 = "address2";
     public static final String cityName = "city_name";
     public static final String phoneNumber = "phone_number";
     public static final String website = "website";
@@ -50,6 +50,21 @@ public class Dictionary {
     public static final String shippingAmount = "shipping_amount";
     public static final String socialShare = "social_share";
     public static final String lastBidder = "last_bidder";
-
+    public static final String shippingUser = "shipping_user";
+    public static final String shippingAddress1 = "shipping_address1";
+    public static final String shippingAddress2 = "shipping_address2";
+    public static final String shippingState = "shipping_state";
+    public static final String shippingCountryId = "shipping_country_id";
+    public static final String shippingCityId = "shipping_city_id";
+    public static final String shippingMobileno = "shipping_mobileno";
+    public static final String shippingZipcode = "shipping_zipcode";
+    public static final String shippingCountryName = "shipping_country_name";
+    public static final String shippingCityName = "shipping_city_name";
+    public static final String email = "email";
+    public static final String firstName = "firstname";
+    public static final String lastName = "lastname";
+    public static final String phone = "phone";
+    public static final String userImage = "user_image";
+    public static final String cityId = "city_id";
 
 }

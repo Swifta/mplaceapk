@@ -35,10 +35,11 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.swifta.zenith.marketplace.Adapters.SimilarDealsAdapter;
 import com.swifta.zenith.marketplace.R;
-import com.swifta.zenith.marketplace.Utils.JSONParser;
-import com.swifta.zenith.marketplace.Utils.Timer;
 import com.swifta.zenith.marketplace.Utils.Dictionary;
+import com.swifta.zenith.marketplace.Utils.JSONParser;
 import com.swifta.zenith.marketplace.Utils.NetworkConnection;
+import com.swifta.zenith.marketplace.Utils.Timer;
+import com.swifta.zenith.marketplace.Utils.UnicodeConverter;
 import com.swifta.zenith.marketplace.Utils.Utility;
 
 import org.json.JSONException;
@@ -325,7 +326,7 @@ public class DealsDetailsActivity extends BaseToolbarActivity {
                                         detailName.setText(dealsDetails.get(0).getProperty(Dictionary.dealTitle).toString());
                                         detailOff.setText(dealsDetails.get(0).getProperty(Dictionary.dealDiscount).toString() + "%");
                                         // Displays HTML in the Textview
-                                        detailDescription.setText(Html.fromHtml(dealsDetails.get(0).getProperty(Dictionary.description).toString()));
+                                        detailDescription.setText(UnicodeConverter.getConversionResult(dealsDetails.get(0).getProperty(Dictionary.description).toString()));
 
                                         String termsText = dealsDetails.get(0).getProperty(Dictionary.termsConditions).toString();
                                         if (termsText.equals("") || termsText.equals(null)) {
@@ -391,6 +392,10 @@ public class DealsDetailsActivity extends BaseToolbarActivity {
         }
     }
 
+
+    /**
+     * Send the store details to the StoreActivity
+     */
     public void onClick(View view) {
         switch (view.getId()) {
             case (R.id.view_detail):
@@ -480,7 +485,7 @@ public class DealsDetailsActivity extends BaseToolbarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_product_details, menu);
+        getMenuInflater().inflate(R.menu.menu_deals_details, menu);
 
         // Sets up the cart count menu item
         View cartBadgeLayout = MenuItemCompat.getActionView(menu.findItem(R.id.cart_badge));

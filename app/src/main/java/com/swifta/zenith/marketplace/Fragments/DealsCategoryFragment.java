@@ -1,8 +1,8 @@
 package com.swifta.zenith.marketplace.Fragments;
 
 
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -80,6 +80,9 @@ public class DealsCategoryFragment extends android.support.v4.app.Fragment {
         return v;
     }
 
+    /**
+     * Loads all the categories from the server with Ion
+     */
     private void initializeCategories() {
         if (networkConnection.isInternetOn()) {
             Ion.with(this)

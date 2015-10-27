@@ -95,15 +95,15 @@ public class StoreDetailsActivity extends BaseToolbarActivity implements OnMapRe
             // Sets the values for StoreDetails variables
             storeName.setText(store.getProperty(Dictionary.storeName).toString());
             storeType.setText(store.getProperty(Dictionary.storeType).toString());
-            storeAddress1.setText(store.getProperty(Dictionary.storeAddress1).toString());
+            storeAddress1.setText(store.getProperty(Dictionary.address1).toString());
             // Confirms the second store address is not empty before using it
-            if (store.getProperty(Dictionary.storeAddress2).toString() != null &&
-                    store.getProperty(Dictionary.storeAddress2).toString().length() != 0) {
+            if (store.getProperty(Dictionary.address2).toString() != null &&
+                    store.getProperty(Dictionary.address2).toString().length() != 0) {
                 // Confirms the second store address is not equal to the first store address
-                if (!store.getProperty(Dictionary.storeAddress1).toString()
-                        .equals(store.getProperty(Dictionary.storeAddress2).toString())) {
+                if (!store.getProperty(Dictionary.address1).toString()
+                        .equals(store.getProperty(Dictionary.address2).toString())) {
                     storeAddress2.setVisibility(View.VISIBLE);
-                    storeAddress2.setText(store.getProperty(Dictionary.storeAddress2).toString());
+                    storeAddress2.setText(store.getProperty(Dictionary.address2).toString());
                 }
             }
             storeCity.setText(store.getProperty(Dictionary.cityName).toString());

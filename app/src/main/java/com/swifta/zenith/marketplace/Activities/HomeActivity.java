@@ -22,6 +22,7 @@ import com.koushikdutta.ion.Ion;
 import com.swifta.zenith.marketplace.Adapters.AuctionsAdapter;
 import com.swifta.zenith.marketplace.Adapters.DealsAdapter;
 import com.swifta.zenith.marketplace.Adapters.ProductsAdapter;
+import com.swifta.zenith.marketplace.Database.CartDatabase;
 import com.swifta.zenith.marketplace.R;
 import com.swifta.zenith.marketplace.Utils.JSONParser;
 import com.swifta.zenith.marketplace.Utils.NetworkConnection;
@@ -35,6 +36,12 @@ import java.util.ArrayList;
 
 public class HomeActivity extends BaseNavigationDrawerActivity {
 
+    public static int cartCount = 0;
+    public static int wishlistCount = 0;
+    public static int compareCount = 0;
+    private static TextView cartTextView;
+    private static TextView wishlistTextView;
+    private static TextView compareTextView;
     private View homeView;
     private CardView mCardView;
     private RecyclerView mRecyclerView;
@@ -55,20 +62,35 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
     private TextView auctionsTryAgain;
     private TextView productViewAll;
     private TextView dealsViewAll;
-    private static TextView cartTextView;
-    private static TextView wishlistTextView;
-    private static TextView compareTextView;
     private TextView auctionsViewAll;
     private ProgressBar productsProgress;
     private ProgressBar dealsProgress;
     private ProgressBar auctionsProgress;
     private NetworkConnection networkConnection;
-    public static int cartCount = 0;
-    public static int wishlistCount = 0;
-    public static int compareCount = 0;
     private ArrayList<JSONParser> products = new ArrayList<JSONParser>();
     private ArrayList<JSONParser> deals = new ArrayList<JSONParser>();
     private ArrayList<JSONParser> auctions = new ArrayList<JSONParser>();
+
+    /**
+     * Updates the value of the cart in the Menu
+     */
+    public static void displayCartCount() {
+        cartTextView.setText(String.valueOf(cartCount));
+    }
+
+    /**
+     * Updates the value of the wishlist in the Menu
+     */
+    public static void displayWishlistCount() {
+        wishlistTextView.setText(String.valueOf(wishlistCount));
+    }
+
+    /**
+     * Updates the value of the compare icon in the Menu
+     */
+    public static void displayCompareCount() {
+        compareTextView.setText(String.valueOf(compareCount));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,15 +128,19 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
         dealsLinearLayoutManager = new LinearLayoutManager(this);
         auctionsLinearLayoutManager = new LinearLayoutManager(this);
 
-        // Hides the welcome card and shows the full menu
+
         // in the Navigation View if the user is logged in.
-        // Also sets the welcome text to the username
         if (BaseNavigationDrawerActivity.SIGNED_IN) {
+            // Hides the welcome card and shows the full menu
             mCardView.setVisibility(View.GONE);
+            // Also sets the welcome text to the username
             SharedPreferences preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
             String username = preferences.getString("username", "");
             drawer_name.setText(username);
         } else {
+            // Clears the database
+            CartDatabase.deleteAll(CartDatabase.class);
+            // Shows the welcome card and shows the full menu
             mCardView.setVisibility(View.VISIBLE);
         }
 
@@ -380,7 +406,21 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
         // Sets up the cart count menu item
         View cartBadgeLayout = MenuItemCompat.getActionView(menu.findItem(R.id.cart_badge));
         cartTextView = (TextView) cartBadgeLayout.findViewById(R.id.cart_count_text);
-        cartTextView.setText(String.valueOf(cartCount));
+        cartTextView.setText(String.valueOf(HomeActivity.cartCount));
+
+        cartBadgeLayout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (HomeActivity.cartCount == 0) {
+                    Snackbar.make(homeView, "You have no products in your cart yet.", Snackbar.LENGTH_SHORT).show();
+                } else {
+                    Intent i = new Intent(HomeActivity.this, CartDetailsActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+            }
+        });
 
         // Sets up the wishlist count menu item
         View wishlistBadgeLayout = MenuItemCompat.getActionView(menu.findItem(R.id.wishlist_badge));
@@ -416,26 +456,5 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Updates the value of the cart in the Menu
-     */
-    public static void displayCartCount() {
-        cartTextView.setText(String.valueOf(cartCount));
-    }
-
-    /**
-     * Updates the value of the wishlist in the Menu
-     */
-    public static void displayWishlistCount() {
-        wishlistTextView.setText(String.valueOf(wishlistCount));
-    }
-
-    /**
-     * Updates the value of the compare icon in the Menu
-     */
-    public static void displayCompareCount() {
-        compareTextView.setText(String.valueOf(compareCount));
     }
 }

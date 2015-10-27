@@ -1,12 +1,19 @@
 package com.swifta.zenith.marketplace.Fragments;
 
 
-import android.os.Bundle;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -16,6 +23,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.swifta.zenith.marketplace.Activities.CartDetailsActivity;
+import com.swifta.zenith.marketplace.Activities.HomeActivity;
 import com.swifta.zenith.marketplace.Adapters.AllProductAdapter;
 import com.swifta.zenith.marketplace.R;
 import com.swifta.zenith.marketplace.Utils.JSONParser;
@@ -31,6 +40,10 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class AllProductFragment extends android.support.v4.app.Fragment {
+    public static final int FRAGMENT_TAG = 1;
+    static TextView cartTextView;
+    static TextView wishlistTextView;
+    static TextView compareTextView;
     View rootView;
     RecyclerView mRecyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -44,12 +57,35 @@ public class AllProductFragment extends android.support.v4.app.Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * Updates the value of the cart in the Menu
+     */
+    public static void displayCartCount() {
+        cartTextView.setText(String.valueOf(HomeActivity.cartCount));
+    }
+
+    /**
+     * Updates the value of the wishlist in the Menu
+     */
+    public static void displayWishlistCount() {
+        wishlistTextView.setText(String.valueOf(HomeActivity.wishlistCount));
+    }
+
+    /**
+     * Updates the value of the compare icon in the Menu
+     */
+    public static void displayCompareCount() {
+        compareTextView.setText(String.valueOf(HomeActivity.compareCount));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_all_product, container, false);
+
+        // Enables the menu to be displayed in the fragment
+        setHasOptionsMenu(true);
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.all_products_recycler);
         mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
@@ -72,15 +108,17 @@ public class AllProductFragment extends android.support.v4.app.Fragment {
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
-
         initializeProducts();
 
-        allProductAdapter = new AllProductAdapter(getActivity(), products);
+        allProductAdapter = new AllProductAdapter(getActivity(), products, FRAGMENT_TAG);
         mRecyclerView.setAdapter(allProductAdapter);
 
         return rootView;
     }
 
+    /**
+     * Loads all the products from the server with Ion
+     */
     private void initializeProducts() {
         if (networkConnection.isInternetOn()) {
             Ion.with(this)
@@ -108,7 +146,7 @@ public class AllProductFragment extends android.support.v4.app.Fragment {
                                                 JSONObject jsonObject = new JSONObject(result_inner.toString());
                                                 products.add(new JSONParser(jsonObject));
                                             } catch (JSONException jsonException) {
-
+                                                jsonException.printStackTrace();
                                             }
                                         }
                                         allProductAdapter.notifyDataSetChanged();
@@ -128,5 +166,65 @@ public class AllProductFragment extends android.support.v4.app.Fragment {
             networkConnection.displayAlert();
         }
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_all_products, menu);
+
+        // Sets up the cart count menu item
+        View cartBadgeLayout = MenuItemCompat.getActionView(menu.findItem(R.id.cart_badge));
+        cartTextView = (TextView) cartBadgeLayout.findViewById(R.id.cart_count_text);
+        cartTextView.setText(String.valueOf(HomeActivity.cartCount));
+
+        cartBadgeLayout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (HomeActivity.cartCount == 0) {
+                    new AlertDialog.Builder(getActivity())
+                            .setMessage("You have no products in your cart yet.")
+                            .setCancelable(true)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            })
+                            .show();
+                } else {
+                    Intent i = new Intent(getActivity(), CartDetailsActivity.class);
+                    startActivity(i);
+                }
+            }
+        });
+
+        // Sets up the wishlist count menu item
+        View wishlistBadgeLayout = MenuItemCompat.getActionView(menu.findItem(R.id.wishlist_badge));
+        wishlistTextView = (TextView) wishlistBadgeLayout.findViewById(R.id.wishlist_count_text);
+        wishlistTextView.setText(String.valueOf(HomeActivity.wishlistCount));
+
+        // Sets up the compare count menu item
+        View compareBadgeLayout = MenuItemCompat.getActionView(menu.findItem(R.id.compare_badge));
+        compareTextView = (TextView) compareBadgeLayout.findViewById(R.id.compare_count_text);
+        compareTextView.setText(String.valueOf(HomeActivity.compareCount));
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

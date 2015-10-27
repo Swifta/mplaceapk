@@ -35,6 +35,7 @@
         android:id="@+id/scrollView_content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/app_bar_no_collapsing"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".BaseToolbarActivity" />
 </android.support.design.widget.CoordinatorLayout><!-- From: file:/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/src/main/res/layout/activity_base_toolbar.xml -->

@@ -26,5 +26,4 @@
         android:title="Cart"
         app:actionLayout="@layout/cart_update_count"
         app:showAsAction="always" />
-
 </menu>

@@ -2,16 +2,12 @@ package com.swifta.zenith.marketplace.Activities;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import android.support.design.widget.TabLayout;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MenuItemCompat;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import com.swifta.zenith.marketplace.Fragments.AuctionsCategoryListFragment;
 import com.swifta.zenith.marketplace.Fragments.DealsCategoryListFragment;
@@ -23,9 +19,6 @@ import java.util.ArrayList;
 public class SubCategoryActivity extends BaseToolbarActivity {
     View rootView;
     Bundle bundle;
-    static TextView cartTextView;
-    static TextView wishlistTextView;
-    static TextView compareTextView;
     String categoryName;
     String fragmentName;
     ArrayList<String> subCategoryId = new ArrayList<String>();
@@ -97,65 +90,6 @@ public class SubCategoryActivity extends BaseToolbarActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_all_products, menu);
-
-        // Sets up the cart count menu item
-        View cartBadgeLayout = MenuItemCompat.getActionView(menu.findItem(R.id.cart_badge));
-        cartTextView = (TextView) cartBadgeLayout.findViewById(R.id.cart_count_text);
-        cartTextView.setText(String.valueOf(HomeActivity.cartCount));
-
-        // Sets up the wishlist count menu item
-        View wishlistBadgeLayout = MenuItemCompat.getActionView(menu.findItem(R.id.wishlist_badge));
-        wishlistTextView = (TextView) wishlistBadgeLayout.findViewById(R.id.wishlist_count_text);
-        wishlistTextView.setText(String.valueOf(HomeActivity.wishlistCount));
-
-        // Sets up the compare count menu item
-        View compareBadgeLayout = MenuItemCompat.getActionView(menu.findItem(R.id.compare_badge));
-        compareTextView = (TextView) compareBadgeLayout.findViewById(R.id.compare_count_text);
-        compareTextView.setText(String.valueOf(HomeActivity.compareCount));
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Updates the value of the cart in the Menu
-     */
-    public static void displayCartCount() {
-        cartTextView.setText(String.valueOf(HomeActivity.cartCount));
-    }
-
-    /**
-     * Updates the value of the wishlist in the Menu
-     */
-    public static void displayWishlistCount() {
-        wishlistTextView.setText(String.valueOf(HomeActivity.wishlistCount));
-    }
-
-    /**
-     * Updates the value of the compare icon in the Menu
-     */
-    public static void displayCompareCount() {
-        compareTextView.setText(String.valueOf(HomeActivity.compareCount));
-    }
-
     /**
      * Sends the subcategory_id to another fragment to enable fetching
      * of the product category list in the new fragment
@@ -193,6 +127,5 @@ public class SubCategoryActivity extends BaseToolbarActivity {
                         .commit();
                 break;
         }
-
     }
 }

@@ -62,54 +62,55 @@
             android:id="@+id/navigation_subheader_2"
             android:title="@string/navigation_subheader_2">
             <menu>
-                <item
-                    android:id="@+id/main_navigation_item_21"
-                    android:checked="false"
-                    android:icon="@drawable/ic_action_my_wishlist"
-                    android:title="@string/navigation_item_21" />
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/main_navigation_item_21"
+                        android:checked="false"
+                        android:icon="@drawable/ic_action_my_wishlist"
+                        android:title="@string/navigation_item_21" />
 
-                <item
-                    android:id="@+id/main_navigation_item_22"
-                    android:checked="false"
-                    android:icon="@drawable/ic_action_my_account"
-                    android:title="@string/navigation_item_22" />
+                    <item
+                        android:id="@+id/main_navigation_item_22"
+                        android:checked="false"
+                        android:icon="@drawable/ic_action_my_account"
+                        android:title="@string/navigation_item_22" />
 
-                <item
-                    android:id="@+id/main_navigation_item_23"
-                    android:checked="false"
-                    android:icon="@drawable/ic_action_my_orders"
-                    android:title="@string/navigation_item_23" />
+                    <item
+                        android:id="@+id/main_navigation_item_23"
+                        android:checked="false"
+                        android:icon="@drawable/ic_action_my_orders"
+                        android:title="@string/navigation_item_23" />
 
-                <item
-                    android:id="@+id/main_navigation_item_24"
-                    android:checked="false"
-                    android:icon="@drawable/ic_action_my_wishlist"
-                    android:title="@string/navigation_item_24" />
+                    <item
+                        android:id="@+id/main_navigation_item_24"
+                        android:checked="false"
+                        android:icon="@drawable/ic_action_my_wishlist"
+                        android:title="@string/navigation_item_24" />
 
-                <item
-                    android:id="@+id/main_navigation_item_25"
-                    android:checked="false"
-                    android:icon="@drawable/ic_action_my_subscriptions"
-                    android:title="@string/navigation_item_25" />
+                    <item
+                        android:id="@+id/main_navigation_item_25"
+                        android:checked="false"
+                        android:icon="@drawable/ic_action_my_subscriptions"
+                        android:title="@string/navigation_item_25" />
 
-                <item
-                    android:id="@+id/main_navigation_item_26"
-                    android:checked="false"
-                    android:icon="@drawable/ic_action_my_bid_history"
-                    android:title="@string/navigation_item_26" />
+                    <item
+                        android:id="@+id/main_navigation_item_26"
+                        android:checked="false"
+                        android:icon="@drawable/ic_action_my_bid_history"
+                        android:title="@string/navigation_item_26" />
 
-                <item
-                    android:id="@+id/main_navigation_item_27"
-                    android:checked="false"
-                    android:icon="@drawable/ic_action_club_membership"
-                    android:title="@string/navigation_item_27" />
+                    <item
+                        android:id="@+id/main_navigation_item_27"
+                        android:checked="false"
+                        android:icon="@drawable/ic_action_club_membership"
+                        android:title="@string/navigation_item_27" />
 
-                <item
-                    android:id="@+id/main_navigation_item_28"
-                    android:checked="false"
-                    android:icon="@drawable/ic_action_shipping_address"
-                    android:title="@string/navigation_item_28" />
-
+                    <item
+                        android:id="@+id/main_navigation_item_28"
+                        android:checked="false"
+                        android:icon="@drawable/ic_action_shipping_address"
+                        android:title="@string/navigation_item_28" />
+                </group>
             </menu>
         </item>
 
@@ -117,11 +118,13 @@
             android:id="@+id/navigation_subheader_2_1"
             android:title="@string/navigation_subheader_2">
             <menu>
-                <item
-                    android:id="@id/main_navigation_item_27"
-                    android:checked="false"
-                    android:icon="@drawable/ic_action_club_membership"
-                    android:title="@string/navigation_item_27" />
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@id/main_navigation_item_27"
+                        android:checked="false"
+                        android:icon="@drawable/ic_action_club_membership"
+                        android:title="@string/navigation_item_27" />
+                </group>
             </menu>
         </item>
 
@@ -129,11 +132,13 @@
             android:id="@+id/navigation_subheader_3"
             android:title="@string/navigation_subheader_3">
             <menu>
-                <item
-                    android:id="@+id/main_navigation_item_31"
-                    android:checked="false"
-                    android:icon="@drawable/ic_action_help"
-                    android:title="@string/navigation_item_31" />
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/main_navigation_item_31"
+                        android:checked="false"
+                        android:icon="@drawable/ic_action_help"
+                        android:title="@string/navigation_item_31" />
+                </group>
             </menu>
         </item>
     </group>

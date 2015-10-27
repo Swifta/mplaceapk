@@ -2,11 +2,11 @@ package com.swifta.zenith.marketplace.Fragments;
 
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -31,6 +31,7 @@ import com.swifta.zenith.marketplace.Adapters.AuctionsAdapter;
 import com.swifta.zenith.marketplace.R;
 import com.swifta.zenith.marketplace.Utils.JSONParser;
 import com.swifta.zenith.marketplace.Utils.NetworkConnection;
+import com.swifta.zenith.marketplace.Utils.Session;
 import com.swifta.zenith.marketplace.Utils.Utility;
 
 import org.json.JSONException;
@@ -42,6 +43,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class NearAuctionsFragment extends android.support.v4.app.Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 10000;
     View rootView;
     RecyclerView mRecyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -55,11 +57,6 @@ public class NearAuctionsFragment extends android.support.v4.app.Fragment implem
     LocationRequest mLocationRequest;
     ArrayList<JSONParser> auctions = new ArrayList<JSONParser>();
     AuctionsAdapter auctionsAdapter;
-    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 10000;
-    private final static int UPDATE_INTERVAL = 1000;
-    private final static int FASTEST_INTERVAL = 5000;
-    private final static int DISPLACEMENT = 10;
-
 
     public NearAuctionsFragment() {
         // Required empty public constructor
@@ -72,7 +69,7 @@ public class NearAuctionsFragment extends android.support.v4.app.Fragment implem
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_near_products, container, false);
 
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.all_products_recycler);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.near_products_recycler);
         mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
         networkConnection = new NetworkConnection(getActivity());
         progressBar = (ProgressBar) rootView.findViewById(R.id.near_deals_progress);
@@ -88,9 +85,6 @@ public class NearAuctionsFragment extends android.support.v4.app.Fragment implem
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         }
-
-        // Gets Location from Google API
-        //getCurrentLocation();
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -118,9 +112,13 @@ public class NearAuctionsFragment extends android.support.v4.app.Fragment implem
     private void initializeProducts() {
         if (networkConnection.isInternetOn()) {
 
-            if (mLatitude != 0 && mLongitude != 0) {
+            if (!mGoogleApiClient.isConnected()) {
+                mGoogleApiClient.connect();
+            }
 
-                String location = mLatitude + "/" + mLongitude + ".html";
+            if (Session.getLatitude(getActivity()) != null && Session.getLongitude(getActivity()) != null) {
+
+                String location = Session.getLatitude(getActivity()) + "/" + Session.getLongitude(getActivity()) + ".html";
 
                 Ion.with(this)
                         .load(Utility.HOST_VALUE + Utility.NEAR_AUCTIONS_PATH_VALUE + location)
@@ -148,7 +146,7 @@ public class NearAuctionsFragment extends android.support.v4.app.Fragment implem
                                                     JSONObject jsonObject = new JSONObject(result_inner.toString());
                                                     auctions.add(new JSONParser(jsonObject));
                                                 } catch (JSONException exception) {
-
+                                                    exception.printStackTrace();
                                                 }
                                             }
                                             auctionsAdapter.notifyDataSetChanged();
@@ -192,20 +190,18 @@ public class NearAuctionsFragment extends android.support.v4.app.Fragment implem
                 .build();
     }
 
-    protected void createLocationRequest() {
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(UPDATE_INTERVAL);
-        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setSmallestDisplacement(DISPLACEMENT);
-    }
-
+    /**
+     * Gets the current location of the device and enables the GPS if it's turned off
+     **/
     private void getCurrentLocation() {
         mLocation = LocationServices.FusedLocationApi
                 .getLastLocation(mGoogleApiClient);
         if (mLocation != null) {
             mLatitude = mLocation.getLatitude();
             mLongitude = mLocation.getLongitude();
+
+            Session.saveLongitude(String.valueOf(mLongitude), getActivity());
+            Session.saveLatitude(String.valueOf(mLatitude), getActivity());
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage("Your GPS is disabled. Do you want to enbale it?")
@@ -224,7 +220,6 @@ public class NearAuctionsFragment extends android.support.v4.app.Fragment implem
                     });
             AlertDialog alert = builder.create();
             alert.show();
-
         }
     }
 

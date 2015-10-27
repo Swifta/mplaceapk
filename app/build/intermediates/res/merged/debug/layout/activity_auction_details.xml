@@ -420,9 +420,12 @@
                     android:id="@+id/share_auction"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eight_dp"
+                    android:background="@drawable/red_button_selector"
                     android:clickable="false"
                     android:onClick="onClick"
-                    android:text="@string/share_auction" />
+                    android:text="@string/share_auction"
+                    android:textColor="@android:color/white" />
 
             </LinearLayout>
 
@@ -475,6 +478,7 @@
                         android:id="@+id/store_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/four_dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -491,8 +495,13 @@
                         android:id="@+id/view_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/eight_dp"
+                        android:layout_marginTop="@dimen/eight_dp"
+                        android:background="@drawable/red_button_selector"
                         android:onClick="onClick"
-                        android:text="@string/view_details" />
+                        android:padding="@dimen/eight_dp"
+                        android:text="@string/view_details"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
             </LinearLayout>

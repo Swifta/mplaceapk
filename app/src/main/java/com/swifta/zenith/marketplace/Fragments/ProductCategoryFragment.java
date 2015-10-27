@@ -1,8 +1,8 @@
 package com.swifta.zenith.marketplace.Fragments;
 
 
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,6 +49,7 @@ public class ProductCategoryFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_product_category, container, false);
 
@@ -80,6 +81,9 @@ public class ProductCategoryFragment extends android.support.v4.app.Fragment {
         return v;
     }
 
+    /**
+     * Loads all the categories from the server with Ion
+     */
     private void initializeCategories() {
         if (networkConnection.isInternetOn()) {
             Ion.with(this)
@@ -129,5 +133,4 @@ public class ProductCategoryFragment extends android.support.v4.app.Fragment {
             networkConnection.displayAlert();
         }
     }
-
 }

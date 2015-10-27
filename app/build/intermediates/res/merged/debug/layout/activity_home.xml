@@ -59,7 +59,7 @@
                         android:id="@+id/sign_in_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorPrimary"
+                        android:background="@drawable/red_button_selector"
                         android:onClick="onClick"
                         android:text="@string/sign_in"
                         android:textColor="@android:color/white" />
@@ -84,7 +84,7 @@
                         android:id="@+id/register_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/white"
+                        android:background="@drawable/white_button_selector"
                         android:onClick="onClick"
                         android:text="@string/register"
                         android:textColor="@color/colorPrimary" />
@@ -129,15 +129,14 @@
                 android:layout_gravity="center"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:padding="@dimen/eight_dp"
-                android:weightSum="1">
+                android:padding="@dimen/eight_dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/four_dp"
                     android:layout_marginRight="@dimen/four_dp"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.4"
                     android:text="@string/start_shopping_text"
                     android:textSize="15sp" />
 
@@ -145,8 +144,8 @@
                     android:id="@+id/start_shopping_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:background="@color/colorPrimary"
+                    android:layout_weight="0.6"
+                    android:background="@drawable/red_button_selector"
                     android:onClick="onClick"
                     android:text="@string/start_shopping"
                     android:textColor="@android:color/white" />
@@ -197,6 +196,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/eight_dp"
                     android:layout_weight="1"
+                    android:background="@drawable/red_text_selector"
                     android:clickable="true"
                     android:gravity="end"
                     android:onClick="onClick"
@@ -286,6 +286,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/eight_dp"
                     android:layout_weight="1"
+                    android:background="@drawable/red_text_selector"
                     android:clickable="true"
                     android:gravity="end"
                     android:onClick="onClick"
@@ -376,6 +377,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/eight_dp"
                     android:layout_weight="1"
+                    android:background="@drawable/red_text_selector"
                     android:clickable="true"
                     android:gravity="end"
                     android:onClick="onClick"
@@ -458,7 +460,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/red_button_selector"
                 android:onClick="onClick"
                 android:text="@string/explore"
                 android:textColor="@android:color/white" />

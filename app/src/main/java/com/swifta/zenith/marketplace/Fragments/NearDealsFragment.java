@@ -2,11 +2,11 @@ package com.swifta.zenith.marketplace.Fragments;
 
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -31,6 +31,7 @@ import com.swifta.zenith.marketplace.Adapters.DealsAdapter;
 import com.swifta.zenith.marketplace.R;
 import com.swifta.zenith.marketplace.Utils.JSONParser;
 import com.swifta.zenith.marketplace.Utils.NetworkConnection;
+import com.swifta.zenith.marketplace.Utils.Session;
 import com.swifta.zenith.marketplace.Utils.Utility;
 
 import org.json.JSONException;
@@ -42,6 +43,10 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class NearDealsFragment extends android.support.v4.app.Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 10000;
+    private final static int UPDATE_INTERVAL = 1000;
+    private final static int FASTEST_INTERVAL = 5000;
+    private final static int DISPLACEMENT = 10;
     View rootView;
     RecyclerView mRecyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -55,10 +60,6 @@ public class NearDealsFragment extends android.support.v4.app.Fragment implement
     LocationRequest mLocationRequest;
     ArrayList<JSONParser> deals = new ArrayList<JSONParser>();
     DealsAdapter dealsAdapter;
-    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 10000;
-    private final static int UPDATE_INTERVAL = 1000;
-    private final static int FASTEST_INTERVAL = 5000;
-    private final static int DISPLACEMENT = 10;
 
 
     public NearDealsFragment() {
@@ -72,7 +73,7 @@ public class NearDealsFragment extends android.support.v4.app.Fragment implement
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_near_products, container, false);
 
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.all_products_recycler);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.near_products_recycler);
         mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
         networkConnection = new NetworkConnection(getActivity());
         progressBar = (ProgressBar) rootView.findViewById(R.id.near_deals_progress);
@@ -81,16 +82,11 @@ public class NearDealsFragment extends android.support.v4.app.Fragment implement
         // Checks the availability of Google Play services
         if (checkPlayServices()) {
             buildGoogleAPIClient();
-
-            // createLocationRequest();
         }
 
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         }
-
-        // Gets Location from Google API
-        //getCurrentLocation();
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -116,12 +112,19 @@ public class NearDealsFragment extends android.support.v4.app.Fragment implement
     }
 
 
+    /**
+     * Loads all the products from the server with the Ion Library
+     **/
     private void initializeProducts() {
         if (networkConnection.isInternetOn()) {
 
-            if (mLatitude != 0 && mLongitude != 0) {
+            if (!mGoogleApiClient.isConnected()) {
+                mGoogleApiClient.connect();
+            }
 
-                String location = mLatitude + "/" + mLongitude + ".html";
+            if (Session.getLatitude(getActivity()) != null && Session.getLongitude(getActivity()) != null) {
+
+                String location = Session.getLatitude(getActivity()) + "/" + Session.getLongitude(getActivity()) + ".html";
 
                 Ion.with(this)
                         .load(Utility.HOST_VALUE + Utility.NEAR_DEALS_PATH_VALUE + location)
@@ -149,7 +152,7 @@ public class NearDealsFragment extends android.support.v4.app.Fragment implement
                                                     JSONObject jsonObject = new JSONObject(result_inner.toString());
                                                     deals.add(new JSONParser(jsonObject));
                                                 } catch (JSONException jsonException) {
-
+                                                    jsonException.printStackTrace();
                                                 }
                                             }
                                             dealsAdapter.notifyDataSetChanged();
@@ -169,7 +172,6 @@ public class NearDealsFragment extends android.support.v4.app.Fragment implement
         } else {
             networkConnection.displayAlert();
         }
-
     }
 
     private boolean checkPlayServices() {
@@ -201,12 +203,18 @@ public class NearDealsFragment extends android.support.v4.app.Fragment implement
         mLocationRequest.setSmallestDisplacement(DISPLACEMENT);
     }
 
+    /**
+     * Gets the current location of the device and enables the GPS if it's turned off
+     **/
     private void getCurrentLocation() {
         mLocation = LocationServices.FusedLocationApi
                 .getLastLocation(mGoogleApiClient);
         if (mLocation != null) {
             mLatitude = mLocation.getLatitude();
             mLongitude = mLocation.getLongitude();
+
+            Session.saveLongitude(String.valueOf(mLongitude), getActivity());
+            Session.saveLatitude(String.valueOf(mLatitude), getActivity());
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage("Your GPS is disabled. Do you want to enbale it?")
@@ -215,6 +223,7 @@ public class NearDealsFragment extends android.support.v4.app.Fragment implement
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                            getCurrentLocation();
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {

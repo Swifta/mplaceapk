@@ -22,10 +22,24 @@
     <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name="com.orm.SugarApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="DATABASE"
+            android:value="marketplace.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="7" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.swifta.zenith.marketplace" />
+
         <activity
             android:name="com.swifta.zenith.marketplace.Activities.HomeActivity"
             android:label="@string/app_name" >
@@ -105,19 +119,33 @@
             android:label="@string/title_activity_store_details" />
         <activity
             android:name="com.swifta.zenith.marketplace.Activities.AllDealsActivity"
-            android:label="@string/title_activity_all_deals" >
-        </activity>
+            android:label="@string/title_activity_all_deals" />
         <activity
             android:name="com.swifta.zenith.marketplace.Activities.DealsDetailsActivity"
-            android:label="@string/title_activity_deals_details" >
-        </activity>
+            android:label="@string/title_activity_deals_details" />
         <activity
             android:name="com.swifta.zenith.marketplace.Activities.AuctionDetailsActivity"
-            android:label="@string/title_activity_auction_details" >
-        </activity>
+            android:label="@string/title_activity_auction_details" />
         <activity
             android:name="com.swifta.zenith.marketplace.Activities.AllAuctionActivity"
-            android:label="@string/title_activity_all_auction" >
+            android:label="@string/title_activity_all_auction" />
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.CartDetailsActivity"
+            android:label="@string/title_activity_cart_details" />
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.CheckoutActivity"
+            android:label="@string/title_activity_checkout"
+            android:parentActivityName="com.swifta.zenith.marketplace.Activities.CheckoutActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.CartDetailsActivity" />
+        </activity>
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.ShippingActivity"
+            android:label="@string/title_activity_shipping" />
+        <activity
+            android:name="com.swifta.zenith.marketplace.Activities.ProfileActivity"
+            android:label="@string/title_activity_profile" >
         </activity>
     </application>
 

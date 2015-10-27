@@ -3,12 +3,12 @@ package com.swifta.zenith.marketplace.Activities;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,10 +31,10 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.swifta.zenith.marketplace.Adapters.SimilarAuctionsAdapter;
 import com.swifta.zenith.marketplace.R;
-import com.swifta.zenith.marketplace.Utils.JSONParser;
-import com.swifta.zenith.marketplace.Utils.Timer;
 import com.swifta.zenith.marketplace.Utils.Dictionary;
+import com.swifta.zenith.marketplace.Utils.JSONParser;
 import com.swifta.zenith.marketplace.Utils.NetworkConnection;
+import com.swifta.zenith.marketplace.Utils.Timer;
 import com.swifta.zenith.marketplace.Utils.Utility;
 
 import org.json.JSONException;
@@ -344,6 +344,9 @@ public class AuctionDetailsActivity extends BaseToolbarActivity {
         }
     }
 
+    /**
+     * Send the store details to the StoreActivity
+     */
     public void onClick(View view) {
         switch (view.getId()) {
             case (R.id.view_detail):
@@ -438,7 +441,7 @@ public class AuctionDetailsActivity extends BaseToolbarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_product_details, menu);
+        getMenuInflater().inflate(R.menu.menu_auction_details, menu);
 
         // Sets up the cart count menu item
         View cartBadgeLayout = MenuItemCompat.getActionView(menu.findItem(R.id.cart_badge));

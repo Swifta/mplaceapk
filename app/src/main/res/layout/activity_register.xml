@@ -84,7 +84,7 @@
             android:id="@+id/register_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/red_button_selector"
             android:onClick="registerOnClick"
             android:text="@string/register_next"
             android:textColor="@android:color/white" />
@@ -99,11 +99,11 @@
             android:id="@+id/register_sign_in_here"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/red_text_selector"
             android:clickable="true"
             android:onClick="registerOnClick"
             android:text="@string/register_sign_in_here"
             android:textColor="@color/colorAccent" />
-
 
     </LinearLayout>
 
@@ -199,6 +199,7 @@
             android:id="@+id/register_terms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/red_text_selector"
             android:clickable="true"
             android:onClick="registerOnClick"
             android:text="@string/register_terms" />
@@ -219,9 +220,10 @@
                 android:id="@+id/register_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
-                android:background="@android:color/white"
+                android:background="@drawable/white_button_selector"
                 android:onClick="registerOnClick"
                 android:text="@string/register_back"
                 android:textColor="@color/colorPrimary" />
@@ -231,7 +233,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/red_button_selector"
                 android:onClick="registerOnClick"
                 android:text="@string/register_submit"
                 android:textColor="@android:color/white" />

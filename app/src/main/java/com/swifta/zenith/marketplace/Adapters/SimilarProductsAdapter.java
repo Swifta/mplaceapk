@@ -23,9 +23,11 @@ import com.swifta.zenith.marketplace.Activities.BaseNavigationDrawerActivity;
 import com.swifta.zenith.marketplace.Activities.HomeActivity;
 import com.swifta.zenith.marketplace.Activities.ProductDetailsActivity;
 import com.swifta.zenith.marketplace.Activities.SignInActivity;
+import com.swifta.zenith.marketplace.Database.CartDatabase;
 import com.swifta.zenith.marketplace.R;
 import com.swifta.zenith.marketplace.Utils.Dictionary;
 import com.swifta.zenith.marketplace.Utils.JSONParser;
+import com.swifta.zenith.marketplace.Utils.UnicodeConverter;
 
 import java.util.List;
 
@@ -77,9 +79,9 @@ public class SimilarProductsAdapter extends RecyclerView.Adapter<SimilarProducts
                 .toString() + "% off");
 
         discount = products.get(position).getProperty(Dictionary.productDiscount).toString();
-        oldPrice = products.get(position).getProperty(Dictionary.currencySymbol)
-                .toString() + products.get(position).getProperty("product_price").toString();
-        newPrice = products.get(position).getProperty(Dictionary.currencySymbol).toString() +
+        oldPrice = UnicodeConverter.getConversionResult(products.get(position).getProperty(Dictionary.currencySymbol)
+                .toString()) + products.get(position).getProperty("product_price").toString();
+        newPrice = UnicodeConverter.getConversionResult(products.get(position).getProperty(Dictionary.currencySymbol).toString()) +
                 products.get(position).getProperty("product_value").toString();
 
         comparePrices(discount, oldPrice, newPrice, holder.oldPrice, holder.newPrice);
@@ -132,31 +134,33 @@ public class SimilarProductsAdapter extends RecyclerView.Adapter<SimilarProducts
                                             switch (menuItem.getItemId()) {
                                                 case 1:
                                                     HomeActivity.wishlistCount += 1;
-                                                    HomeActivity.displayWishlistCount();
+                                                    ProductDetailsActivity.displayWishlistCount();
                                                     Snackbar.make(view, products.get(position).getProperty("product_title").toString()
                                                             + context.getString(R.string.added_to_wishlist), Snackbar.LENGTH_SHORT).show();
                                                     return true;
                                                 case 2:
                                                     HomeActivity.compareCount += 1;
-                                                    HomeActivity.displayCompareCount();
+                                                    ProductDetailsActivity.displayCompareCount();
                                                     Snackbar.make(view, products.get(position).getProperty("product_title").toString()
                                                             + context.getString(R.string.added_to_compare), Snackbar.LENGTH_SHORT).show();
                                                     return true;
                                                 case 3:
                                                     HomeActivity.cartCount += 1;
-                                                    HomeActivity.displayCartCount();
+                                                    ProductDetailsActivity.displayCartCount();
+
+                                                    // Creates a new CartDatabase instance with Sugar and saves an ArrayList in it
+                                                    CartDatabase mDatabase = new CartDatabase(products.get(position).toString());
+                                                    mDatabase.save();
+
                                                     Snackbar.make(view, products.get(position).getProperty("product_title").toString()
                                                             + context.getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
                                                     return true;
                                                 default:
                                                     return false;
                                             }
-
                                         }
-
                                     }
                                 }
-
                         );
                         popupMenu.show();
                     }

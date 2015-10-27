@@ -23,9 +23,10 @@ import com.swifta.zenith.marketplace.Activities.AuctionDetailsActivity;
 import com.swifta.zenith.marketplace.Activities.BaseNavigationDrawerActivity;
 import com.swifta.zenith.marketplace.Activities.SignInActivity;
 import com.swifta.zenith.marketplace.R;
+import com.swifta.zenith.marketplace.Utils.Dictionary;
 import com.swifta.zenith.marketplace.Utils.JSONParser;
 import com.swifta.zenith.marketplace.Utils.Timer;
-import com.swifta.zenith.marketplace.Utils.Dictionary;
+import com.swifta.zenith.marketplace.Utils.UnicodeConverter;
 
 import java.text.ParseException;
 import java.util.List;
@@ -93,7 +94,7 @@ public class AllAuctionAdapter extends RecyclerView.Adapter<AllAuctionAdapter.Au
             e1.printStackTrace();
         }
 
-        newPrice = auctions.get(position).getProperty(Dictionary.currencySymbol).toString() +
+        newPrice = UnicodeConverter.getConversionResult(auctions.get(position).getProperty(Dictionary.currencySymbol).toString()) +
                 auctions.get(position).getProperty("deal_value").toString();
 
         holder.newPrice.setText(newPrice);

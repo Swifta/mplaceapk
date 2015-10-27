@@ -1,18 +1,10 @@
 package com.swifta.zenith.marketplace.Activities;
 
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Build;
-import android.support.customtabs.CustomTabsCallback;
-import android.support.customtabs.CustomTabsClient;
-import android.support.customtabs.CustomTabsIntent;
-import android.support.customtabs.CustomTabsServiceConnection;
-import android.support.customtabs.CustomTabsSession;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -22,9 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,13 +23,17 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.swifta.zenith.marketplace.R;
-import com.swifta.zenith.marketplace.Utils.Utility;
+import com.swifta.zenith.marketplace.Utils.ChromeTabsCreator;
+import com.swifta.zenith.marketplace.Utils.Session;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
 
+    public static boolean SIGNED_IN = false;
+    protected static int position;
+    final List<MenuItem> items = new ArrayList<>();
     protected Toolbar mToolbar;
     protected DrawerLayout mDrawerLayout;
     protected CoordinatorLayout mCoordinatorLayout;
@@ -51,14 +45,7 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
     protected TextView drawer_name;
     protected TextView drawer_sign_in;
     protected TextView drawer_sign_out;
-    private static final String TAG = "CustomTabsClientExample";
-    private CustomTabsSession mCustomTabsSession;
-    private CustomTabsClient mClient;
-    private CustomTabsServiceConnection mConnection;
-    final List<MenuItem> items = new ArrayList<>();
-
-    protected static int position;
-    public static boolean SIGNED_IN = false;
+    private ChromeTabsCreator mChromeTabsCreator;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -78,15 +65,17 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDarker));
         }
 
+        View navigationHeaderView = getLayoutInflater().inflate(R.layout.navigation_header, null);
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_coordinator_layout);
         mNestedScrollView = (NestedScrollView) findViewById(R.id.scrollView_content_frame);
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-        drawer_name = (TextView) findViewById(R.id.drawer_name);
-        drawer_sign_in = (TextView) findViewById(R.id.drawer_sign_in);
-        drawer_sign_out = (TextView) findViewById(R.id.drawer_sign_out);
+        drawer_name = (TextView) navigationHeaderView.findViewById(R.id.drawer_name);
+        drawer_sign_in = (TextView) navigationHeaderView.findViewById(R.id.drawer_sign_in);
+        drawer_sign_out = (TextView) navigationHeaderView.findViewById(R.id.drawer_sign_out);
         menu = mNavigationView.getMenu();
+        mChromeTabsCreator = new ChromeTabsCreator();
 
         // Sets the Toolbar instead of the ActionBar
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
@@ -97,6 +86,8 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
         if (SIGNED_IN) {
             mNavigationView.getMenu().removeItem(R.id.navigation_subheader_2_1);
             drawer_name.setVisibility(View.VISIBLE);
+            drawer_name.setText("Welcome back, " + Session.getEmail(this));
+
             drawer_sign_in.setVisibility(View.GONE);
             drawer_sign_out.setVisibility(View.VISIBLE);
         } else {
@@ -104,7 +95,6 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
             drawer_name.setVisibility(View.GONE);
             drawer_sign_in.setVisibility(View.VISIBLE);
             drawer_sign_out.setVisibility(View.GONE);
-
         }
 
         drawer_sign_in.setOnClickListener(new View.OnClickListener() {
@@ -120,9 +110,7 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Clear all the data from the SharedPreferences
-                SharedPreferences sharedPreferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
+                Session.clear(BaseNavigationDrawerActivity.this);
 
                 SIGNED_IN = false;
 
@@ -181,13 +169,10 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.home) {
+        if (id == R.id.home) {
             mDrawerLayout.openDrawer(GravityCompat.START);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -203,9 +188,15 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * // Allows Navigation Items to be checked on click in the Navigation view
+     **/
     private void goToNavDrawerItem(MenuItem menuItem) {
-        int id = menuItem.getItemId();
+        int id;
+
+        id = menuItem.getItemId();
         BaseNavigationDrawerActivity.position = items.indexOf(menuItem);
+
         switch (id) {
             case R.id.main_navigation_item_11:
                 createNewIntent(HomeActivity.class);
@@ -232,13 +223,13 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
                 createNewIntent(NearActivity.class);
                 break;
             case R.id.main_navigation_item_19:
-                //createNewIntent(BlogActivity.class);
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder(getSession());
-                builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary)).setShowTitle(true);
-                builder.setStartAnimations(this, android.R.anim.slide_out_right, android.R.anim.slide_in_left);
-                builder.setExitAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(this, Uri.parse(Utility.BLOG_VALUE));
+                mChromeTabsCreator.createDefaultChromeTab(this, BaseNavigationDrawerActivity.this);
+                break;
+            case R.id.main_navigation_item_22:
+                createNewIntent(ProfileActivity.class);
+                break;
+            case R.id.main_navigation_item_28:
+                createNewIntent(ShippingActivity.class);
                 break;
         }
         mDrawerLayout.closeDrawers();
@@ -246,33 +237,9 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        unbindCustomTabsService();
+        mChromeTabsCreator.unbindCustomTabsService();
 
         super.onDestroy();
     }
-
-    // Used to create a custom Chrome tab for the blog
-    private CustomTabsSession getSession() {
-        if (mClient == null) {
-            mCustomTabsSession = null;
-        } else if (mCustomTabsSession == null) {
-            mCustomTabsSession = mClient.newSession(new CustomTabsCallback() {
-                @Override
-                public void onNavigationEvent(int navigationEvent, Bundle extras) {
-                    Log.w(TAG, "onNavigationEvent: Code = " + navigationEvent);
-                }
-            });
-        }
-        return mCustomTabsSession;
-    }
-
-    // Used to create a custom Chrome tab for the blog
-    private void unbindCustomTabsService() {
-        if (mConnection == null) return;
-        unbindService(mConnection);
-        mClient = null;
-        mCustomTabsSession = null;
-    }
-
 }
 

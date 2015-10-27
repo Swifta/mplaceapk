@@ -2,24 +2,25 @@ package com.swifta.zenith.marketplace.Activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.swifta.zenith.marketplace.Utils.NetworkConnection;
 import com.swifta.zenith.marketplace.R;
+import com.swifta.zenith.marketplace.Utils.NetworkConnection;
+import com.swifta.zenith.marketplace.Utils.Session;
+import com.swifta.zenith.marketplace.Utils.TextVerifier;
 import com.swifta.zenith.marketplace.Utils.Utility;
 
 public class SignInActivity extends BaseToolbarActivity {
+    private static final String LANG = "en";
     private View signInView;
     private TextInputLayout emailTextInputLayout;
     private TextInputLayout passwordTextInputLayout;
@@ -28,11 +29,11 @@ public class SignInActivity extends BaseToolbarActivity {
     private EditText signInPassword;
     private EditText emailIdEditText;
     private NetworkConnection networkConnection;
+    private TextVerifier textVerifier;
     private String email;
     private String forgotPasswordEmail;
     private String password;
     private ProgressDialog progressDialog;
-    private static final String URL = "en";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class SignInActivity extends BaseToolbarActivity {
         signInEmail = (EditText) signInView.findViewById(R.id.sign_in_email);
         signInPassword = (EditText) signInView.findViewById(R.id.sign_in_password);
         networkConnection = new NetworkConnection(SignInActivity.this);
+        textVerifier = new TextVerifier(this);
 
         // Sets the Back button on the Toolbar to HomeActivity
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -80,32 +82,21 @@ public class SignInActivity extends BaseToolbarActivity {
     }
 
     /**
-     * Validates the email address and password fields
+     * Validates the input fields from top to bottom. Does not move to the next field if one is till invalid.
      */
     public boolean validateSignInField() {
-        // Checks if the email address is empty
-        if (email.length() == 0) {
-            emailTextInputLayout.setError(getString(R.string.error_email));
-            return false;
+        boolean email;
+        boolean password = false;
+
+        // Verifies that the email is not empty and is valid
+        email = textVerifier.resolveEmailEditText(signInEmail, emailTextInputLayout, getString(R.string.error_email), getString(R.string.error_valid_email));
+
+        // If email is valid, verify password
+        if (email) {
+            password = textVerifier.resolvePasswordEditText(signInPassword, passwordTextInputLayout, getString(R.string.error_password), getString(R.string.error_short_password), 6);
         }
-        // Checks if the email address is valid
-        if (!RegisterActivity.validEmail(email)) {
-            emailTextInputLayout.setError(getString(R.string.error_valid_email));
-            return false;
-        } else {
-            RegisterActivity.unsetLayoutError(emailTextInputLayout);
-        }
-        // Verifies that the password is not empty
-        if (password.length() == 0) {
-            passwordTextInputLayout.setError(getString(R.string.error_password));
-            return false;
-        }
-        // Verifies that the password is greater than six
-        if (password.length() < 6) {
-            passwordTextInputLayout.setError(getString(R.string.error_short_password));
-            return false;
-        }
-        return true;
+
+        return email && password;
     }
 
     /**
@@ -123,7 +114,7 @@ public class SignInActivity extends BaseToolbarActivity {
                         .load(Utility.HOST_VALUE + Utility.SIGN_IN_PATH_VALUE)
                         .setBodyParameter("email", email)
                         .setBodyParameter("password", password)
-                        .setBodyParameter("lang", URL)
+                        .setBodyParameter("lang", LANG)
                         .asJsonObject()
                         .setCallback(new FutureCallback<JsonObject>() {
 
@@ -134,6 +125,7 @@ public class SignInActivity extends BaseToolbarActivity {
 
                                 // Checks if login was successful
                                 if (e == null) {
+
                                     if (response.get("httpCode").getAsInt() != 200) {
                                         // Displays the error message in a dialog
                                         AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);
@@ -148,14 +140,14 @@ public class SignInActivity extends BaseToolbarActivity {
                                         AlertDialog alertDialog = builder.create();
                                         alertDialog.show();
                                     } else {
+
+                                        Session.saveUserId(response.get("user_id").getAsString(), SignInActivity.this);
+                                        Session.saveEmail(response.get("email").getAsString(), SignInActivity.this);
+
                                         Snackbar.make(signInView, R.string.successful_login, Snackbar.LENGTH_SHORT)
                                                 .show();
                                         BaseNavigationDrawerActivity.SIGNED_IN = true;
 
-                                        SharedPreferences sharedPreferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putString("username", "Welcome back, " + email);
-                                        editor.commit();
                                         startActivity(new Intent(SignInActivity.this,
                                                 HomeActivity.class));
                                         finish();
@@ -201,7 +193,7 @@ public class SignInActivity extends BaseToolbarActivity {
                 Ion.with(this)
                         .load(Utility.HOST_VALUE + Utility.FORGOT_PASSWORD_PATH_VALUE)
                         .setBodyParameter("emailid", forgotPasswordEmail)
-                        .setBodyParameter("lang", URL)
+                        .setBodyParameter("lang", LANG)
                         .asJsonObject()
                         .setCallback(new FutureCallback<JsonObject>() {
                             @Override
@@ -285,15 +277,7 @@ public class SignInActivity extends BaseToolbarActivity {
      */
     public boolean validateEmailId() {
         // Checks if the address is null or empty
-        if (forgotPasswordEmail == null || forgotPasswordEmail.length() == 0) {
-            emailIdTextInputLayout.setError(getString(R.string.error_email));
-            return false;
-        }
-        // Checks if the email address is valid
-        if (!RegisterActivity.validEmail(forgotPasswordEmail)) {
-            emailIdTextInputLayout.setError(getString(R.string.error_valid_email));
-            return false;
-        }
+        textVerifier.resolveEmailEditText(emailIdEditText, emailIdTextInputLayout, getString(R.string.error_email), getString(R.string.error_valid_email));
         return true;
     }
 
@@ -307,4 +291,3 @@ public class SignInActivity extends BaseToolbarActivity {
         finish();
     }
 }
-

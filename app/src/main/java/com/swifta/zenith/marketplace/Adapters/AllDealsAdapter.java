@@ -26,9 +26,10 @@ import com.swifta.zenith.marketplace.Activities.DealsDetailsActivity;
 import com.swifta.zenith.marketplace.Activities.HomeActivity;
 import com.swifta.zenith.marketplace.Activities.SignInActivity;
 import com.swifta.zenith.marketplace.R;
+import com.swifta.zenith.marketplace.Utils.Dictionary;
 import com.swifta.zenith.marketplace.Utils.JSONParser;
 import com.swifta.zenith.marketplace.Utils.Timer;
-import com.swifta.zenith.marketplace.Utils.Dictionary;
+import com.swifta.zenith.marketplace.Utils.UnicodeConverter;
 
 import java.text.ParseException;
 import java.util.List;
@@ -100,9 +101,9 @@ public class AllDealsAdapter extends RecyclerView.Adapter<AllDealsAdapter.Produc
         holder.discount.setText(deals.get(position).getProperty(Dictionary.productDiscount)
                 .toString() + "% off");
 
-        oldPrice = deals.get(position).getProperty(Dictionary.currencySymbol)
-                .toString() + deals.get(position).getProperty("deal_price").toString();
-        newPrice = deals.get(position).getProperty(Dictionary.currencySymbol).toString() +
+        oldPrice = UnicodeConverter.getConversionResult(deals.get(position).getProperty(Dictionary.currencySymbol).toString())
+                + deals.get(position).getProperty("deal_price").toString();
+        newPrice = UnicodeConverter.getConversionResult(deals.get(position).getProperty(Dictionary.currencySymbol).toString()) +
                 deals.get(position).getProperty("deal_value").toString();
 
         comparePrices(oldPrice, newPrice, holder.oldPrice, holder.newPrice);
@@ -164,7 +165,9 @@ public class AllDealsAdapter extends RecyclerView.Adapter<AllDealsAdapter.Produc
                                     return true;
                                 case 3:
                                     HomeActivity.cartCount += 1;
+
                                     AllDealsActivity.displayCartCount();
+
                                     Snackbar.make(view, deals.get(position).getProperty(Dictionary.dealTitle).toString()
                                             + context.getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
                                     return true;

@@ -25,9 +25,10 @@ import com.swifta.zenith.marketplace.Activities.DealsDetailsActivity;
 import com.swifta.zenith.marketplace.Activities.HomeActivity;
 import com.swifta.zenith.marketplace.Activities.SignInActivity;
 import com.swifta.zenith.marketplace.R;
+import com.swifta.zenith.marketplace.Utils.Dictionary;
 import com.swifta.zenith.marketplace.Utils.JSONParser;
 import com.swifta.zenith.marketplace.Utils.Timer;
-import com.swifta.zenith.marketplace.Utils.Dictionary;
+import com.swifta.zenith.marketplace.Utils.UnicodeConverter;
 
 import java.text.ParseException;
 import java.util.List;
@@ -97,9 +98,9 @@ public class SimilarDealsAdapter extends RecyclerView.Adapter<SimilarDealsAdapte
         holder.discount.setText((deals.get(position).getProperty(Dictionary.dealDiscount)
                 .toString()) + "% off");
 
-        oldPrice = deals.get(position).getProperty(Dictionary.currencySymbol)
-                .toString() + deals.get(position).getProperty("deal_price").toString();
-        newPrice = deals.get(position).getProperty(Dictionary.currencySymbol).toString() +
+        oldPrice = UnicodeConverter.getConversionResult(deals.get(position).getProperty(Dictionary.currencySymbol)
+                .toString()) + deals.get(position).getProperty("deal_price").toString();
+        newPrice = UnicodeConverter.getConversionResult(deals.get(position).getProperty(Dictionary.currencySymbol).toString()) +
                 deals.get(position).getProperty("deal_value").toString();
 
         comparePrices(oldPrice, newPrice, holder.oldPrice, holder.newPrice);

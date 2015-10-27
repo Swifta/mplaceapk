@@ -6,7 +6,8 @@ package com.swifta.zenith.marketplace.Utils;
 public class Utility {
     // Local server address - http://192.168.1.127 http://ecommerce-g0k7am7h.cloudapp.net/marketplace/
     // http://ecommerce-g0k7am7h.cloudapp.net
-    public static final String HOST_VALUE = "http://intranet.swifta.com";
+    //http://intranet.swifta.com
+    public static final String HOST_VALUE = "http://zenithmktdemo03.cloudapp.net";
 
     // Blog path
     public static final String BLOG_VALUE = HOST_VALUE + "/blog";
@@ -57,4 +58,11 @@ public class Utility {
 
     // Store list
     public static final String STORE_LIST_PATH_VALUE = "/api/store_list/en.html";
+
+    // Shipping
+    public static final String SHIPPING_PATH_VALUE = "/api/users/shipping/";
+    public static final String EDIT_SHIPPING_PATH_VALUE = "/api/users/edit-shipping-address.html";
+
+    // Profile
+    public static final String PROFILE_PATH_VALUE = "/api/users/profile/";
 }

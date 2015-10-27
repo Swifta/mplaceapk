@@ -91,7 +91,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/eight_dp"
+        android:layout_marginBottom="@dimen/four_dp"
         android:paddingLeft="@dimen/eight_dp">
 
         <RatingBar
@@ -114,11 +114,11 @@
             <ImageButton
                 android:id="@+id/popupmenu"
                 android:layout_width="30dp"
-                android:layout_height="@dimen/twenty_dp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="@dimen/eight_dp"
                 android:layout_marginRight="@dimen/eight_dp"
+                android:background="@drawable/card_foreground_selector"
                 android:clickable="true"
-                android:focusable="?attr/selectableItemBackground"
                 android:hapticFeedbackEnabled="true"
                 android:src="@drawable/ic_popup_menu" />
         </FrameLayout>

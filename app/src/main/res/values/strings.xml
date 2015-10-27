@@ -168,6 +168,43 @@
     <string name="bid_amount">Bid Amount:</string>
     <string name="similar_auction">Similar Auctions</string>
 
+    <!-- Cart details Activity -->
+    <string name="subtotal">Sub Total = </string>
+    <string name="grand_total">Grand Total</string>
+    <string name="cart_continue">Continue</string>
+    <string name="checkout">Checkout</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+    <string name="quantity">Quantity</string>
+    <string name="update_error">Please enter a number greater than 0</string>
+    <string name="no_items">You don\'t have any items in your cart. Start shopping now.</string>
+
+    <!-- Checkout Activity -->
+    <string name="choose_payment_type">Choose payment type</string>
+    <string name="interswitch">Interswitch</string>
+    <string name="cash_on_delivery">Cash on delivery</string>
+    <string name="pay_later">Pay later</string>
+    <string name="card_holder_name">Card holder name</string>
+    <string name="card_number">Card number</string>
+    <string name="cvv">CVV</string>
+    <string name="billing_address">Billing Address</string>
+
+    <!-- Shipping Activity -->
+    <string name="shipping_user">Name</string>
+    <string name="shipping_address_1">Address 1</string>
+    <string name="shipping_address_2">Address 2</string>
+    <string name="shipping_country">Country</string>
+    <string name="shipping_state">State</string>
+    <string name="shipping_city">City</string>
+    <string name="shipping_mobile">Mobile Number</string>
+    <string name="shipping_zipcode">Zipcode</string>
+
+    <!-- Profile Activity -->
+    <string name="profile_firstname">First name</string>
+    <string name="profile_lastname">Last name</string>
+    <string name="profile_email">Email</string>
+    <string name="profile_phone">Phone</string>
+
     <!-- Network Connection -->
     <string name="network_failure">Network failure</string>
     <string name="working_data_connection">This application requires a working data connection.</string>
@@ -199,4 +236,8 @@
     <string name="title_activity_deals_details">Deal Details</string>
     <string name="title_activity_auction_details">Auction Details</string>
     <string name="title_activity_all_auction">Auctions</string>
+    <string name="title_activity_cart_details">Cart</string>
+    <string name="title_activity_checkout">Checkout</string>
+    <string name="title_activity_shipping">Shipping Address</string>
+    <string name="title_activity_profile">Profile</string>
 </resources>

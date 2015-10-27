@@ -23,9 +23,11 @@ import com.swifta.zenith.marketplace.Activities.BaseNavigationDrawerActivity;
 import com.swifta.zenith.marketplace.Activities.HomeActivity;
 import com.swifta.zenith.marketplace.Activities.ProductDetailsActivity;
 import com.swifta.zenith.marketplace.Activities.SignInActivity;
+import com.swifta.zenith.marketplace.Database.CartDatabase;
 import com.swifta.zenith.marketplace.R;
 import com.swifta.zenith.marketplace.Utils.Dictionary;
 import com.swifta.zenith.marketplace.Utils.JSONParser;
+import com.swifta.zenith.marketplace.Utils.UnicodeConverter;
 
 import java.util.List;
 
@@ -77,13 +79,11 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
                 .toString() + "% off");
 
         discount = products.get(position).getProperty(Dictionary.productDiscount).toString();
-        oldPrice = products.get(position).getProperty(Dictionary.currencySymbol)
-                .toString() + products.get(position).getProperty("deal_price").toString();
-        newPrice = products.get(position).getProperty(Dictionary.currencySymbol).toString() +
+        oldPrice = UnicodeConverter.getConversionResult(products.get(position).getProperty(Dictionary.currencySymbol).toString()) + products.get(position).getProperty("deal_price").toString();
+        newPrice = UnicodeConverter.getConversionResult(products.get(position).getProperty(Dictionary.currencySymbol).toString()) +
                 products.get(position).getProperty("deal_value").toString();
 
         comparePrices(discount, oldPrice, newPrice, holder.oldPrice, holder.newPrice);
-
 
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,24 +145,24 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
                                                 case 3:
                                                     HomeActivity.cartCount += 1;
                                                     HomeActivity.displayCartCount();
+
+                                                    // Creates a new CartDatabase instance with Sugar and saves an ArrayList in it
+                                                    CartDatabase mDatabase = new CartDatabase(products.get(position).toString());
+                                                    mDatabase.save();
+
                                                     Snackbar.make(view, products.get(position).getProperty(Dictionary.dealTitle).toString()
                                                             + context.getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
                                                     return true;
                                                 default:
                                                     return false;
                                             }
-
                                         }
-
                                     }
                                 }
-
                         );
-
                         popupMenu.show();
                     }
                 }
-
         );
     }
 
@@ -205,7 +205,5 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
             popupMenuAnchor = (ImageButton) itemView.findViewById(R.id.popupmenu);
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
         }
-
     }
-
 }

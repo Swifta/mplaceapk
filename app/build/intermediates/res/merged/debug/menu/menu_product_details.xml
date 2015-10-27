@@ -26,6 +26,5 @@
         android:title="Cart"
         app:actionLayout="@layout/cart_update_count"
         app:showAsAction="always" />
-
 </menu>
 <!-- From: file:/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/src/main/res/menu/menu_product_details.xml -->

@@ -101,55 +101,55 @@
                 android:padding="5dp">
 
                 <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal">-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal">-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginRight="10dp"-->
-                        <!--android:layout_marginEnd="10dp"-->
-                        <!--android:text="@string/size"-->
-                        <!--android:textColor="@android:color/black"-->
-                        <!--android:textSize="15sp" />-->
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:text="@string/size"-->
+                <!--android:textColor="@android:color/black"-->
+                <!--android:textSize="15sp" />-->
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/size"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:textColor="@color/colorPrimary"-->
-                        <!--android:textSize="15sp" />-->
+                <!--<TextView-->
+                <!--android:id="@+id/size"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@color/colorPrimary"-->
+                <!--android:textSize="15sp" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginRight="10dp"-->
-                        <!--android:layout_marginEnd="10dp"-->
-                        <!--android:text="@string/time_left"-->
-                        <!--android:textColor="@android:color/black"-->
-                        <!--android:textSize="15sp" />-->
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:text="@string/time_left"-->
+                <!--android:textColor="@android:color/black"-->
+                <!--android:textSize="15sp" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:textColor="@color/colorPrimary"-->
-                        <!--android:textSize="15sp" />-->
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@color/colorPrimary"-->
+                <!--android:textSize="15sp" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginRight="10dp"-->
-                        <!--android:layout_marginEnd="10dp"-->
-                        <!--android:text="@string/time_left"-->
-                        <!--android:textColor="@android:color/black"-->
-                        <!--android:textSize="15sp" />-->
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:text="@string/time_left"-->
+                <!--android:textColor="@android:color/black"-->
+                <!--android:textSize="15sp" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:textColor="@color/colorPrimary"-->
-                        <!--android:textSize="15sp" />-->
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@color/colorPrimary"-->
+                <!--android:textSize="15sp" />-->
 
                 <!--</LinearLayout>-->
 
@@ -161,8 +161,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
                         android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
                         android:text="@string/discount"
                         android:textColor="@android:color/black"
                         android:textSize="15sp" />
@@ -203,9 +203,12 @@
                     android:id="@+id/share_product"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eight_dp"
+                    android:background="@drawable/red_button_selector"
                     android:clickable="false"
                     android:onClick="onClick"
-                    android:text="@string/share_product" />
+                    android:text="@string/share_product"
+                    android:textColor="@android:color/white" />
 
             </LinearLayout>
 
@@ -257,6 +260,7 @@
                         android:id="@+id/store_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/four_dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -273,8 +277,14 @@
                         android:id="@+id/view_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/eight_dp"
+                        android:layout_marginTop="@dimen/eight_dp"
+                        android:background="@drawable/red_button_selector"
+                        android:clickable="false"
                         android:onClick="onClick"
-                        android:text="@string/view_details" />
+                        android:padding="@dimen/eight_dp"
+                        android:text="@string/view_details"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
             </LinearLayout>
