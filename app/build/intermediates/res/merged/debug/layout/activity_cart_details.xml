@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/very_light_gray"
+    android:orientation="vertical"
+    tools:context="com.swifta.zenith.marketplace.Activities.CartDetailsActivity">
+
+    <LinearLayout
+        android:id="@+id/cart_process"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/cart_continue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_button_selector"
+            android:onClick="cartOnClick"
+            android:text="@string/cart_continue"
+            android:textColor="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/cart_checkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/red_button_selector"
+            android:onClick="cartOnClick"
+            android:text="@string/checkout"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/no_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:text="@string/no_items" />
+
+        <Button
+            android:id="@+id/no_items_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/red_button_selector"
+            android:onClick="cartOnClick"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="@string/start_shopping"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/cart_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="@dimen/eight_dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="@dimen/eight_dp"
+        android:orientation="vertical" />
+
+</LinearLayout>
+
+<!-- From: file:/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/src/main/res/layout/activity_cart_details.xml -->

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +30,10 @@ import com.swifta.zenith.marketplace.Utils.Dictionary;
 import com.swifta.zenith.marketplace.Utils.JSONParser;
 import com.swifta.zenith.marketplace.Utils.UnicodeConverter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -143,15 +148,36 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
                                                             + context.getString(R.string.added_to_compare), Snackbar.LENGTH_SHORT).show();
                                                     return true;
                                                 case 3:
-                                                    HomeActivity.cartCount += 1;
-                                                    HomeActivity.displayCartCount();
+                                                    // Get the deal key of this product
+                                                    String dealKey = products.get(position).getProperty(Dictionary.dealKey).toString();
+                                                    long count = CartDatabase.count(CartDatabase.class, null, null);
 
-                                                    // Creates a new CartDatabase instance with Sugar and saves an ArrayList in it
-                                                    CartDatabase mDatabase = new CartDatabase(products.get(position).toString());
-                                                    mDatabase.save();
+                                                    if (count == 0) {
+                                                        // If the cart is empty, add the product
+                                                        HomeActivity.cartCount += 1;
+                                                        HomeActivity.displayCartCount();
 
-                                                    Snackbar.make(view, products.get(position).getProperty(Dictionary.dealTitle).toString()
-                                                            + context.getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
+                                                        CartDatabase mCartDatabase = new CartDatabase(products.get(position).toString());
+                                                        mCartDatabase.save();
+
+                                                        Snackbar.make(view, products.get(position).getProperty(Dictionary.dealTitle).toString()
+                                                                + context.getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
+                                                    } else {
+                                                        if (containsDuplicateProduct(dealKey)) {
+                                                            Snackbar.make(view, products.get(position).getProperty(Dictionary.dealTitle).toString()
+                                                                    + " is already in your cart.", Snackbar.LENGTH_SHORT).show();
+                                                        } else {
+                                                            // Save the product to cart if there is no duplicate
+                                                            HomeActivity.cartCount += 1;
+                                                            HomeActivity.displayCartCount();
+
+                                                            CartDatabase mCartDatabase = new CartDatabase(products.get(position).toString());
+                                                            mCartDatabase.save();
+
+                                                            Snackbar.make(view, products.get(position).getProperty(Dictionary.dealTitle).toString()
+                                                                    + context.getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
+                                                        }
+                                                    }
                                                     return true;
                                                 default:
                                                     return false;
@@ -184,6 +210,38 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
             oldPriceText.setPaintFlags(oldPriceText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             newPriceText.setText(newPrice);
         }
+    }
+
+    /**
+     * Compare it to the items already present in the Cart to check if it's a duplicate item
+     **/
+    private boolean containsDuplicateProduct(String dealKey) {
+        boolean duplicateProduct = false;
+        String cartDealKey;
+        // Get the list of all items in the Cart Database
+        List<CartDatabase> allProducts = CartDatabase.listAll(CartDatabase.class);
+        List<JSONParser> cartList = new ArrayList<JSONParser>();
+
+        // Search through the List
+        for (int i = 0; i < allProducts.size(); i++) {
+            try {
+                String data = allProducts.get(i).getData();
+                JSONObject parser = new JSONObject(data);
+
+                cartList.add(new JSONParser(parser));
+
+                // Finds the deal_key of all the products in the cart and compares it to the new one
+                cartDealKey = String.valueOf(cartList.get(i).getProperty(Dictionary.dealKey).toString());
+
+                if (dealKey.equals(cartDealKey)) {
+                    duplicateProduct = true;
+                    break;
+                }
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return duplicateProduct;
     }
 
     public static class ProductsViewHolder extends RecyclerView.ViewHolder {

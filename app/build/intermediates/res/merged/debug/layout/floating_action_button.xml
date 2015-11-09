@@ -10,8 +10,10 @@
     android:layout_marginEnd="16dp"
     android:layout_marginRight="16dp"
     app:elevation="6dp"
+    app:fab_addButtonColorNormal="@color/colorAccent"
+    app:fab_addButtonColorPressed="@color/light_gray"
+    app:fab_labelsPosition="left"
     app:pressedTranslationZ="12dp"
-    fab:fab_addButtonColorNormal="@color/colorAccent"
     fab:fab_addButtonPlusIconColor="@color/colorAccent"
     fab:fab_addButtonSize="mini"
     fab:fab_labelsPosition="left">
@@ -30,7 +32,6 @@
         android:id="@+id/fab_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
 
 </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

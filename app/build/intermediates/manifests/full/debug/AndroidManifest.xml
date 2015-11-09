@@ -43,11 +43,6 @@
         <activity
             android:name="com.swifta.zenith.marketplace.Activities.HomeActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.swifta.zenith.marketplace.Activities.DealsActivity"
@@ -146,6 +141,13 @@
         <activity
             android:name="com.swifta.zenith.marketplace.Activities.ProfileActivity"
             android:label="@string/title_activity_profile" >
+        </activity>
+        <activity android:name="com.swifta.zenith.marketplace.Activities.OnboardingActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

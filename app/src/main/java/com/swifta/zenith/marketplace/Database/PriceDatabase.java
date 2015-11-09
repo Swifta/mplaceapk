@@ -6,20 +6,20 @@ import com.orm.SugarRecord;
  * Created by moyinoluwa on 9/30/15.
  */
 public class PriceDatabase extends SugarRecord {
-    long price;
+    Double price;
 
     public PriceDatabase() {
     }
 
-    public PriceDatabase(long price) {
+    public PriceDatabase(Double price) {
         this.price = price;
     }
 
-    public long getPrice() {
+    public Double getPrice() {
         return this.price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

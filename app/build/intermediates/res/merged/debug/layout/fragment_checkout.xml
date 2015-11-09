@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.swifta.zenith.marketplace.Fragments.CheckoutFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="@string/choose_payment_type"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/interswitch"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/interswitch" />
+
+        <Button
+            android:id="@+id/cash_on_delivery"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/cash_on_delivery" />
+
+        <Button
+            android:id="@+id/pay_later"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/pay_later" />
+    </LinearLayout>
+
+</LinearLayout>
+<!-- From: file:/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/src/main/res/layout/fragment_checkout.xml -->

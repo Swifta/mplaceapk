@@ -5,9 +5,12 @@ import android.support.design.widget.TabLayout;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.swifta.zenith.marketplace.Fragments.AllProductFragment;
 import com.swifta.zenith.marketplace.Fragments.NearAuctionsFragment;
 import com.swifta.zenith.marketplace.Fragments.NearDealsFragment;
 import com.swifta.zenith.marketplace.Fragments.NearProductsFragment;
+import com.swifta.zenith.marketplace.Fragments.ProductCategoryFragment;
+import com.swifta.zenith.marketplace.Fragments.ProductCategoryListFragment;
 import com.swifta.zenith.marketplace.R;
 
 public class NearActivity extends BaseNavigationDrawerActivity {
@@ -26,7 +29,9 @@ public class NearActivity extends BaseNavigationDrawerActivity {
             hMenuItem.setChecked(true);
         }
 
-        rootView = getLayoutInflater().inflate(R.layout.activity_near, mNestedScrollView);
+        // Hides NestedScrollView because it's bad practise to display RecyclerView in a ScrollView
+        mNestedScrollView.setVisibility(View.GONE);
+        rootView = getLayoutInflater().inflate(R.layout.activity_near, mCoordinatorLayout);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frameLayout, new NearProductsFragment())

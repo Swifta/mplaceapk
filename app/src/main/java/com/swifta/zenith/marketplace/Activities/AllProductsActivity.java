@@ -15,6 +15,7 @@ public class AllProductsActivity extends BaseToolbarActivity {
         super.onCreate(savedInstanceState);
         // Ignore: setContentView(R.layout.activity_all_products);
 
+        // Hides NestedScrollView because it's bad practise to display RecyclerView in a ScrollView
         mNestedScrollView.setVisibility(View.GONE);
         rootView = getLayoutInflater().inflate(R.layout.activity_all_products, mCoordinatorLayout);
 

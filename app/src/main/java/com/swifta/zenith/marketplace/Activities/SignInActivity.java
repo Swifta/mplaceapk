@@ -264,7 +264,9 @@ public class SignInActivity extends BaseToolbarActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         forgotPasswordEmail = emailIdEditText.getText().toString();
-                        forgotPassword();
+                        if (!forgotPasswordEmail.matches("")) {
+                            forgotPassword();
+                        }
                     }
                 });
         AlertDialog alertDialog = builder.create();

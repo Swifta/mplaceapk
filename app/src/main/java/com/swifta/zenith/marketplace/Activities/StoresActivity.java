@@ -47,6 +47,7 @@ public class StoresActivity extends BaseNavigationDrawerActivity {
             hMenuItem.setChecked(true);
         }
 
+        // Hides NestedScrollView because it's bad practise to display RecyclerView in a ScrollView
         mNestedScrollView.setVisibility(View.GONE);
         rootView = getLayoutInflater().inflate(R.layout.activity_stores, mCoordinatorLayout);
 

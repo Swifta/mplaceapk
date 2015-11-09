@@ -15,6 +15,7 @@ public class Dictionary {
     public static final String description = "description";
     public static final String dealCategory = "deal_category";
     public static final String dealId = "deal_id";
+    public static final String dealKey = "deal_key";
     public static final String categoryName = "category_name";
     public static final String categoryId = "category_id";
     public static final String subCategoryName = "sub_category_name";
@@ -66,5 +67,7 @@ public class Dictionary {
     public static final String phone = "phone";
     public static final String userImage = "user_image";
     public static final String cityId = "city_id";
-
+    public static final String productTitle = "product_title";
+    public static final String productKey = "product_key";
+    public static final String productValue = "product_value";
 }

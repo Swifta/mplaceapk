@@ -15,6 +15,7 @@ public class Session {
     private static final String EMAIL = "email";
     private static final String LONGITUDE = "longitude";
     private static final String LATITUDE = "latitude";
+    private static final String NEW_USER = "new_user";
 
     /**
      * Saves the user id
@@ -90,6 +91,25 @@ public class Session {
         SharedPreferences savedSession = context.getSharedPreferences(
                 KEY, Activity.MODE_PRIVATE);
         return savedSession.getString(LATITUDE, EMPTY_STRING);
+    }
+
+    /**
+     * Saves the user status
+     */
+    public static void saveUserStatus(boolean status, Context context) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(
+                KEY, Activity.MODE_PRIVATE).edit();
+        editor.putBoolean(NEW_USER, status);
+        editor.apply();
+    }
+
+    /**
+     * Returns the user status
+     */
+    public static boolean isNewUser(Context context) {
+        SharedPreferences savedSession = context.getSharedPreferences(
+                KEY, Activity.MODE_PRIVATE);
+        return savedSession.getBoolean(NEW_USER, true);
     }
 
     /**

@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.gson.JsonArray;
@@ -416,6 +417,7 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
                     Snackbar.make(homeView, "You have no products in your cart yet.", Snackbar.LENGTH_SHORT).show();
                 } else {
                     Intent i = new Intent(HomeActivity.this, CartDetailsActivity.class);
+                    i.putExtra("activity_name", HomeActivity.class);
                     startActivity(i);
                     finish();
                 }
@@ -447,7 +449,7 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent ac;//tivity in AndroidManifest.xml.
+        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement

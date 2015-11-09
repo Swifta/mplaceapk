@@ -8,6 +8,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.swifta.zenith.marketplace.Database.PriceDatabase;
 import com.swifta.zenith.marketplace.R;
 import com.swifta.zenith.marketplace.Utils.Dictionary;
 import com.swifta.zenith.marketplace.Utils.JSONParser;
+import com.swifta.zenith.marketplace.Utils.ShippingType;
 import com.swifta.zenith.marketplace.Utils.UnicodeConverter;
 
 import java.util.ArrayList;
@@ -35,15 +37,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     List<JSONParser> cartList;
     Context context;
     Toolbar mToolbar;
-    long deductedPrice;
-    long updatedPrice;
+    Double deductedPrice;
+    Double updatedPrice;
     String quantity;
-    ArrayList<Long> subTotalPriceArray = new ArrayList<Long>();
+    Class activity;
+    ArrayList<Double> subTotalPriceArray = new ArrayList<Double>();
 
-    public CartAdapter(Context context, List<JSONParser> carts, Toolbar mToolbar) {
+    public CartAdapter(Context context, List<JSONParser> carts, Toolbar mToolbar, Class activity) {
         this.cartList = carts;
         this.context = context;
         this.mToolbar = mToolbar;
+        this.activity = activity;
     }
 
     @Override
@@ -62,20 +66,44 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 .placeholder(R.drawable.home_background)
                 .load(cartList.get(position).getProperty(Dictionary.imageUrl).toString());
 
-        holder.productName.setText(cartList.get(position).getProperty(Dictionary.dealTitle).toString());
+        // Checks whether the product has deal or products key so as to load the correct title
+        if (cartList.get(position).getProperty(Dictionary.dealTitle).toString().equals("Not found")) {
+            holder.productName.setText(cartList.get(position).getProperty(Dictionary.productTitle).toString());
+        } else {
+            holder.productName.setText(cartList.get(position).getProperty(Dictionary.dealTitle).toString());
+        }
 
-        holder.productPrice.setText("Price: " + UnicodeConverter.getConversionResult(cartList.get(position).getProperty(Dictionary.currencySymbol).toString())
-                + cartList.get(position).getProperty(Dictionary.dealValue).toString());
+        // Checks whether the product has deal or products key so as to load the correct product value
+        if (cartList.get(position).getProperty(Dictionary.dealValue).toString().equals("Not found")) {
+            holder.productPrice.setText("Price: " + UnicodeConverter.getConversionResult(cartList.get(position).getProperty(
+                    Dictionary.currencySymbol).toString()) + cartList.get(position).getProperty(Dictionary.productValue).toString());
+            deductedPrice = Double.valueOf(cartList.get(position).getProperty(Dictionary.productValue).toString());
+            subTotalPriceArray.add(position, deductedPrice);
 
-        deductedPrice = Long.valueOf(cartList.get(position).getProperty(Dictionary.dealValue).toString());
-        subTotalPriceArray.add(position, deductedPrice);
+            holder.subTotalPrice.setText("Subtotal Price: "
+                    + UnicodeConverter.getConversionResult(cartList.get(position).getProperty(Dictionary.currencySymbol).toString())
+                    + cartList.get(position).getProperty(Dictionary.productValue).toString());
+        } else {
+            holder.productPrice.setText("Price: " + UnicodeConverter.getConversionResult(cartList.get(position).getProperty(
+                    Dictionary.currencySymbol).toString()) + cartList.get(position).getProperty(Dictionary.dealValue).toString());
+            deductedPrice = Double.valueOf(cartList.get(position).getProperty(Dictionary.dealValue).toString());
+            subTotalPriceArray.add(position, deductedPrice);
+
+            holder.subTotalPrice.setText("Subtotal Price: "
+                    + UnicodeConverter.getConversionResult(cartList.get(position).getProperty(Dictionary.currencySymbol).toString())
+                    + cartList.get(position).getProperty(Dictionary.dealValue).toString());
+        }
 
         final List<PriceDatabase> priceDatabase = PriceDatabase.listAll(PriceDatabase.class);
 
-        mToolbar.setSubtitle("Grand total = " + UnicodeConverter.getConversionResult(cartList.get(position).getProperty(Dictionary.currencySymbol).toString())
+        // Sets the total price in the toolbar
+        mToolbar.setSubtitle("Grand total = " + UnicodeConverter.getConversionResult(
+                cartList.get(position).getProperty(Dictionary.currencySymbol).toString())
                 + priceDatabase.get(0).getPrice());
 
-        holder.shipping.setText("Shipping: " + cartList.get(position).getProperty(Dictionary.shippingMethod).toString());
+        // Gets the Shipping code and sets the corresponding meaning
+        String shippingTypeValue = cartList.get(position).getProperty(Dictionary.shippingMethod).toString();
+        holder.shipping.setText(ShippingType.getValue(shippingTypeValue, context));
 
         quantity = "1";
         setQuantity(quantity);
@@ -86,11 +114,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         } else {
             holder.productQuantity.setText("Quantity: " + getQuantity() + " items");
         }
-
-        holder.subTotalPrice.setText("Subtotal Price: "
-                + UnicodeConverter.getConversionResult(cartList.get(position).getProperty(Dictionary.currencySymbol).toString())
-                + cartList.get(position).getProperty(Dictionary.dealValue).toString());
-
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +126,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
-                                // Reduces the deleted item from the cart
+                                // Removes the deleted item from the cart and reduces the number of items in the cart by 1
                                 int currentCount = HomeActivity.cartCount - 1;
                                 if ((currentCount) <= 0) {
                                     HomeActivity.cartCount = 0;
@@ -119,6 +142,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                                 resetCartList(cartList);
 
                                 Intent intent = new Intent(context, CartDetailsActivity.class);
+                                intent.putExtra("activity_name", activity);
                                 context.startActivity(intent);
                             }
                         })
@@ -135,7 +159,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String price = cartList.get(position).getProperty(Dictionary.dealValue).toString();
+                String price;
+                if (cartList.get(position).getProperty(Dictionary.dealValue).toString().equals("Not found")) {
+                    price = cartList.get(position).getProperty(Dictionary.productValue).toString();
+                } else {
+                    price = cartList.get(position).getProperty(Dictionary.dealValue).toString();
+                }
                 updateQuantityText(holder.productQuantity, holder.subTotalPrice, price, position);
             }
         });
@@ -171,7 +200,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
      **/
     private void updateGrandTotalPrice() {
 
-        updatedPrice = 0;
+        updatedPrice = 0.0;
 
         for (int i = 0; i < subTotalPriceArray.size(); i++) {
             updatedPrice += subTotalPriceArray.get(i);
@@ -213,12 +242,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                             quantityTextInputLayout.setError(context.getString(R.string.update_error));
                         } else {
                             setQuantity(updatedValue);
-                            quantityText.setText("Quantity: " + updatedValue + " items");
-                            long subToTalPrice = Integer.valueOf(getQuantity()) *
-                                    Integer.valueOf(price);
+
+                            // Sets the correct tense depending on the number of items present
+                            if (updatedValue.equals("0") || getQuantity().equals("1")) {
+                                quantityText.setText("Quantity: " + updatedValue + " item");
+                            } else {
+                                quantityText.setText("Quantity: " + updatedValue + " item");
+                            }
+
+                            Double subToTalPriceValue = Double.valueOf(getQuantity()) *
+                                    Double.valueOf(price);
                             subTotalText.setText("Subtotal Price: " + UnicodeConverter.getConversionResult(cartList.get(position).getProperty(Dictionary.currencySymbol).toString())
-                                    + String.valueOf(subToTalPrice));
-                            subTotalPriceArray.set(position, subToTalPrice);
+                                    + String.valueOf(subToTalPriceValue));
+                            subTotalPriceArray.set(position, subToTalPriceValue);
 
                             updateGrandTotalPrice();
 

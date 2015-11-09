@@ -13,6 +13,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -35,6 +37,7 @@ import com.swifta.zenith.marketplace.R;
 import com.swifta.zenith.marketplace.Utils.Dictionary;
 import com.swifta.zenith.marketplace.Utils.JSONParser;
 import com.swifta.zenith.marketplace.Utils.NetworkConnection;
+import com.swifta.zenith.marketplace.Utils.ShippingType;
 import com.swifta.zenith.marketplace.Utils.UnicodeConverter;
 import com.swifta.zenith.marketplace.Utils.Utility;
 
@@ -42,6 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDetailsActivity extends BaseToolbarActivity {
     static TextView cartTextView;
@@ -57,6 +61,7 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
     TextView detailDescription;
     TextView detailNewCost;
     TextView shippingType;
+    TextView shippingAmount;
     TextView size;
     TextView storeName;
     TextView storeCityName;
@@ -82,30 +87,10 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
     NetworkConnection networkConnection;
     String[] imageArray;
     CardView similarProductCardview;
+    LinearLayout shippingAmountLayout;
     ArrayList<JSONParser> similarProductList = new ArrayList<JSONParser>();
     ArrayList<JSONParser> productDetails = new ArrayList<JSONParser>();
     ArrayList<JSONParser> storeList = new ArrayList<JSONParser>();
-
-    /**
-     * Updates the value of the cart in the Menu
-     */
-    public static void displayCartCount() {
-        cartTextView.setText(String.valueOf(HomeActivity.cartCount));
-    }
-
-    /**
-     * Updates the value of the wishlist in the Menu
-     */
-    public static void displayWishlistCount() {
-        wishlistTextView.setText(String.valueOf(HomeActivity.wishlistCount));
-    }
-
-    /**
-     * Updates the value of the compare icon in the Menu
-     */
-    public static void displayCompareCount() {
-        compareTextView.setText(String.valueOf(HomeActivity.compareCount));
-    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -129,6 +114,7 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
         detailOff = (TextView) rootView.findViewById(R.id.detail_off);
         detailDescription = (TextView) rootView.findViewById(R.id.detail_description);
         shippingType = (TextView) rootView.findViewById(R.id.shipping_type);
+        shippingAmount = (TextView) rootView.findViewById(R.id.shipping_amount);
         //size = (TextView) rootView.findViewById(R.id.size);
         storeName = (TextView) rootView.findViewById(R.id.store_name);
         storeCityName = (TextView) rootView.findViewById(R.id.store_city);
@@ -141,6 +127,7 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
         productsProgress = (ProgressBar) rootView.findViewById(R.id.product_progress);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.similar_products_recycler_view);
         similarProductCardview = (CardView) rootView.findViewById(R.id.similar_product_cardview);
+        shippingAmountLayout = (LinearLayout) rootView.findViewById(R.id.shipping_amount_layout);
         floatingActionsMenu = (FloatingActionsMenu) floatingButtonView.findViewById(R.id.floating_action_button);
         wishlistFloatingActionButton = (FloatingActionButton) floatingButtonView.findViewById(R.id.fab_wishlist);
         compareFloatingActionButton = (FloatingActionButton) floatingButtonView.findViewById(R.id.fab_compare);
@@ -165,7 +152,7 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
                 }
 
             } catch (JSONException e) {
-
+                e.printStackTrace();
             }
         }
 
@@ -199,7 +186,7 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
                     HomeActivity.wishlistCount += 1;
                     wishlistTextView.setText(String.valueOf(HomeActivity.wishlistCount));
 
-                    if (product.getProperty(Dictionary.dealTitle).toString() == "Not found") {
+                    if (product.getProperty(Dictionary.dealTitle).toString().equals("Not found")) {
                         Snackbar.make(rootView, productName
                                 + getString(R.string.added_to_wishlist), Snackbar.LENGTH_SHORT).show();
                     } else {
@@ -207,7 +194,6 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
                                 + getString(R.string.added_to_wishlist), Snackbar.LENGTH_SHORT).show();
                     }
                 }
-
             }
         });
 
@@ -272,21 +258,46 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
                             })
                             .show();
                 } else {
-                    HomeActivity.cartCount += 1;
 
-                    HomeActivity.displayCartCount();
+                    // Get the deal key of this product
+                    String dealKey = product.getProperty(Dictionary.dealKey).toString();
+                    long count = CartDatabase.count(CartDatabase.class, null, null);
 
-                    cartTextView.setText(String.valueOf(HomeActivity.cartCount));
+                    if (count == 0) {
+                        // If the cart is empty, add the product
+                        HomeActivity.cartCount += 1;
+                        HomeActivity.displayCartCount();
+                        cartTextView.setText(String.valueOf(HomeActivity.cartCount));
 
-                    CartDatabase mCartDatabase = new CartDatabase(productDetails.get(0).toString());
-                    mCartDatabase.save();
+                        CartDatabase mCartDatabase = new CartDatabase(productDetails.get(0).toString());
+                        mCartDatabase.save();
 
-                    if (product.getProperty(Dictionary.dealTitle).toString().equals("Not found")) {
                         Snackbar.make(rootView, productName
                                 + getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
                     } else {
-                        Snackbar.make(rootView, productName
-                                + getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
+                        if (containsDuplicateProduct(dealKey)) {
+                            Snackbar.make(rootView, productName
+                                    + " is already in your cart.", Snackbar.LENGTH_SHORT).show();
+                        } else {
+                            // Save the product to cart if there is no duplicate
+                            HomeActivity.cartCount += 1;
+                            HomeActivity.displayCartCount();
+                            cartTextView.setText(String.valueOf(HomeActivity.cartCount));
+
+                            CartDatabase mCartDatabase = new CartDatabase(productDetails.get(0).toString());
+                            mCartDatabase.save();
+
+                            Snackbar.make(rootView, productName
+                                    + getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
+
+//                                if (product.getProperty(Dictionary.dealTitle).toString().equals("Not found")) {
+//                                    Snackbar.make(rootView, productName
+//                                            + getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
+//                                } else {
+//                                    Snackbar.make(rootView, productName
+//                                            + getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
+//                                }
+                        }
                     }
                 }
             }
@@ -346,6 +357,7 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
 
                                             }
                                         }
+
                                         imageArray = productDetails.get(0).getProperty(Dictionary.imageUrl).toString().split(",");
                                         productName = productDetails.get(0).getProperty(Dictionary.dealTitle).toString();
 
@@ -355,7 +367,18 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
                                         // Displays HTML in the Textview
                                         detailDescription.setText(UnicodeConverter.getConversionResult(productDetails.get(0).getProperty(Dictionary.description).toString()));
 
-                                        shippingType.setText(productDetails.get(0).getProperty(Dictionary.shippingMethod).toString());
+                                        // Gets the Shipping code and sets the corresponding meaning
+                                        String shippingTypeValue = productDetails.get(0).getProperty(Dictionary.shippingMethod).toString();
+                                        shippingType.setText(ShippingType.getValue(shippingTypeValue, getApplicationContext()));
+
+                                        // Hides the shipping amount if shipping is free
+                                        if (ShippingType.getValue(shippingTypeValue, getApplicationContext()).equals(getResources().getString(R.string.free_ship))) {
+                                            shippingAmountLayout.setVisibility(View.GONE);
+                                        } else {
+                                            shippingAmount.setText(UnicodeConverter.getConversionResult(productDetails.get(0).getProperty(Dictionary.currencySymbol).toString())
+                                                    + productDetails.get(0).getProperty(Dictionary.shippingAmount).toString());
+                                        }
+
                                         detailNewCost.setText(UnicodeConverter.getConversionResult(productDetails.get(0).getProperty(Dictionary.currencySymbol).toString())
                                                 + productDetails.get(0).getProperty(Dictionary.dealValue).toString());
                                         //category.setText(productDetails.get(0).getProperty(Dictionary.category).toString());
@@ -458,6 +481,7 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
                                             JSONObject jsonObject = new JSONObject(result_inner.toString());
                                             similarProductList.add(new JSONParser(jsonObject));
                                         } catch (JSONException exception) {
+                                            exception.printStackTrace();
                                         }
                                     }
 
@@ -494,6 +518,7 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ProductDetailsActivity.this, CartDetailsActivity.class);
+                i.putExtra("activity_name", ProductDetailsActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -524,6 +549,27 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
     }
 
     /**
+     * Updates the value of the cart in the Menu
+     */
+    public static void displayCartCount() {
+        cartTextView.setText(String.valueOf(HomeActivity.cartCount));
+    }
+
+    /**
+     * Updates the value of the wishlist in the Menu
+     */
+    public static void displayWishlistCount() {
+        wishlistTextView.setText(String.valueOf(HomeActivity.wishlistCount));
+    }
+
+    /**
+     * Updates the value of the compare icon in the Menu
+     */
+    public static void displayCompareCount() {
+        compareTextView.setText(String.valueOf(HomeActivity.compareCount));
+    }
+
+    /**
      * Sets the properties of the FloatingActionButtons from the library used
      */
     private void setFloatingActionButtonProperties(FloatingActionButton fab, int drawable, String title) {
@@ -534,5 +580,35 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
         fab.setTitle(title);
     }
 
+    /**
+     * Compare it to the items already present in the Cart to check if it's a duplicate item
+     **/
+    private boolean containsDuplicateProduct(String dealKey) {
+        boolean duplicateProduct = false;
+        String cartDealKey;
+        // Get the list of all items in the Cart Database
+        List<CartDatabase> allProducts = CartDatabase.listAll(CartDatabase.class);
+        List<JSONParser> cartList = new ArrayList<JSONParser>();
 
+        // Search through the List
+        for (int i = 0; i < allProducts.size(); i++) {
+            try {
+                String data = allProducts.get(i).getData();
+                JSONObject parser = new JSONObject(data);
+
+                cartList.add(new JSONParser(parser));
+
+                // Finds the deal_key of all the products in the cart and compares it to the new one
+                cartDealKey = String.valueOf(cartList.get(i).getProperty(Dictionary.dealKey).toString());
+
+                if (dealKey.equals(cartDealKey)) {
+                    duplicateProduct = true;
+                    break;
+                }
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return duplicateProduct;
+    }
 }

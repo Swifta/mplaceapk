@@ -23,13 +23,14 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/near_products_recycler"
+            android:id="@+id/unique_products_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical"

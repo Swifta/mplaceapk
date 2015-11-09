@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#A61C00</color>
+    <color name="opaque_colorPrimary">#CCA61C00</color>
     <color name="colorPrimaryLight">#b84b36</color>
     <color name="colorPrimaryDark">#B01800</color>
     <color name="colorPrimaryDarker">#671300</color>
     <color name="colorAccent">#F7A540</color>
+    <color name="opaque_colorAccent">#CCF7A540</color>
     <color name="colorControlNormal">#333</color>
     <color name="secondary_text_light_nodisable">#eeeeee</color>
     <color name="light_gray">#49333333</color>

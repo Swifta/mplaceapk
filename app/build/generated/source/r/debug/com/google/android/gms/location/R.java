@@ -40,8 +40,8 @@ public final class R {
 		public static final int common_signin_btn_light_text_disabled = 0x7f0c0023;
 		public static final int common_signin_btn_light_text_focused = 0x7f0c0024;
 		public static final int common_signin_btn_light_text_pressed = 0x7f0c0025;
-		public static final int common_signin_btn_text_dark = 0x7f0c0064;
-		public static final int common_signin_btn_text_light = 0x7f0c0065;
+		public static final int common_signin_btn_text_dark = 0x7f0c0066;
+		public static final int common_signin_btn_text_light = 0x7f0c0067;
 	}
 	public static final class drawable {
 		public static final int common_full_open_on_phone = 0x7f020047;
@@ -70,8 +70,8 @@ public final class R {
 		public static final int common_signin_btn_text_normal_light = 0x7f02005e;
 		public static final int common_signin_btn_text_pressed_dark = 0x7f02005f;
 		public static final int common_signin_btn_text_pressed_light = 0x7f020060;
-		public static final int powered_by_google_dark = 0x7f020084;
-		public static final int powered_by_google_light = 0x7f020085;
+		public static final int powered_by_google_dark = 0x7f020087;
+		public static final int powered_by_google_light = 0x7f020088;
 	}
 	public static final class id {
 		public static final int adjust_height = 0x7f0d0035;
@@ -89,8 +89,8 @@ public final class R {
 	public static final class raw {
 	}
 	public static final class string {
-		public static final int auth_google_play_services_client_facebook_display_name = 0x7f06003a;
-		public static final int auth_google_play_services_client_google_display_name = 0x7f06003b;
+		public static final int auth_google_play_services_client_facebook_display_name = 0x7f06003b;
+		public static final int auth_google_play_services_client_google_display_name = 0x7f06003c;
 		public static final int common_android_wear_notification_needs_update_text = 0x7f060013;
 		public static final int common_android_wear_update_text = 0x7f060014;
 		public static final int common_android_wear_update_title = 0x7f060015;
@@ -121,8 +121,8 @@ public final class R {
 		public static final int common_google_play_services_updating_text = 0x7f06002e;
 		public static final int common_google_play_services_updating_title = 0x7f06002f;
 		public static final int common_open_on_phone = 0x7f060030;
-		public static final int common_signin_button_text = 0x7f06004b;
-		public static final int common_signin_button_text_long = 0x7f06004c;
+		public static final int common_signin_button_text = 0x7f06004c;
+		public static final int common_signin_button_text_long = 0x7f06004d;
 	}
 	public static final class style {
 	}

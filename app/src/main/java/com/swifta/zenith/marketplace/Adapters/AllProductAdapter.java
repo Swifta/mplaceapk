@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.koushikdutta.ion.Ion;
 import com.swifta.zenith.marketplace.Activities.BaseNavigationDrawerActivity;
@@ -32,6 +33,10 @@ import com.swifta.zenith.marketplace.Utils.Dictionary;
 import com.swifta.zenith.marketplace.Utils.JSONParser;
 import com.swifta.zenith.marketplace.Utils.UnicodeConverter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +45,7 @@ import java.util.List;
 public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.ProductsViewHolder> {
 
     List<JSONParser> products;
+    private LayoutInflater mInflater;
     private PopupMenu popupMenu;
     private Menu menu;
     private Context context;
@@ -49,11 +55,12 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.Pr
         this.products = products;
         this.context = context;
         this.fragmentTag = fragmentTag;
+        mInflater = LayoutInflater.from(context);
     }
 
     @Override
     public ProductsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.products_recycler_view, parent, false);
+        final View view = mInflater.inflate(R.layout.products_recycler_view, parent, false);
         final ProductsViewHolder productsViewHolder = new ProductsViewHolder(view);
 
         return productsViewHolder;
@@ -163,31 +170,57 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.Pr
                                             + context.getString(R.string.added_to_compare), Snackbar.LENGTH_SHORT).show();
                                     return true;
                                 case 3:
-                                    HomeActivity.cartCount += 1;
+                                    // Get the deal key of this product
+                                    String dealKey = products.get(position).getProperty(Dictionary.dealKey).toString();
+                                    long count = CartDatabase.count(CartDatabase.class, null, null);
 
-                                    if (fragmentTag == 1) {
-                                        AllProductFragment.displayCartCount();
-                                    } else if (fragmentTag == 2) {
-                                        ProductCategoryListFragment.displayCartCount();
-                                    } else if (fragmentTag == 3) {
-                                        NearProductsFragment.displayCartCount();
+                                    if (count == 0) {
+                                        // If the cart is empty, add the product
+                                        HomeActivity.cartCount += 1;
+
+                                        if (fragmentTag == 1) {
+                                            AllProductFragment.displayCartCount();
+                                        } else if (fragmentTag == 2) {
+                                            ProductCategoryListFragment.displayCartCount();
+                                        } else if (fragmentTag == 3) {
+                                            NearProductsFragment.displayCartCount();
+                                        }
+
+                                        CartDatabase mCartDatabase = new CartDatabase(products.get(position).toString());
+                                        mCartDatabase.save();
+
+                                        Snackbar.make(view, products.get(position).getProperty(Dictionary.dealTitle).toString()
+                                                + context.getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
+                                    } else {
+                                        if (containsDuplicateProduct(dealKey)) {
+                                            Snackbar.make(view, products.get(position).getProperty(Dictionary.dealTitle).toString()
+                                                    + " is already in your cart.", Snackbar.LENGTH_SHORT).show();
+                                        } else {
+                                            // Save the product to cart if there is no duplicate
+                                            HomeActivity.cartCount += 1;
+
+                                            if (fragmentTag == 1) {
+                                                AllProductFragment.displayCartCount();
+                                            } else if (fragmentTag == 2) {
+                                                ProductCategoryListFragment.displayCartCount();
+                                            } else if (fragmentTag == 3) {
+                                                NearProductsFragment.displayCartCount();
+                                            }
+
+                                            CartDatabase mCartDatabase = new CartDatabase(products.get(position).toString());
+                                            mCartDatabase.save();
+
+                                            Snackbar.make(view, products.get(position).getProperty(Dictionary.dealTitle).toString()
+                                                    + context.getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
+                                        }
                                     }
-
-                                    // Creates a new CartDatabase instance with Sugar and saves an ArrayList in it
-                                    CartDatabase mDatabase = new CartDatabase(products.get(position).toString());
-                                    mDatabase.save();
-
-                                    Snackbar.make(view, products.get(position).getProperty(Dictionary.dealTitle).toString()
-                                            + context.getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show();
                                     return true;
                                 default:
                                     return false;
                             }
                         }
-
                     }
                 });
-
                 popupMenu.show();
             }
         });
@@ -196,6 +229,78 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.Pr
     @Override
     public int getItemCount() {
         return this.products.size();
+    }
+
+    /**
+     * Animates the process of removing, adding or moving items around in the list
+     **/
+    public void animateTo(List<JSONParser> jsonParser) {
+        applyAndAnimateRemovals(jsonParser);
+        applyAndAnimateAdditions(jsonParser);
+        applyAndAnimateMovedItems(jsonParser);
+    }
+
+    /**
+     * Animates the process of removing items from the list
+     **/
+    private void applyAndAnimateRemovals(List<JSONParser> jsonParsers) {
+        for (int i = products.size() - 1; i >= 0; i--) {
+            final JSONParser model = this.products.get(i);
+            if (!jsonParsers.contains(model)) {
+                removeItem(i);
+            }
+        }
+    }
+
+    /**
+     * Animates the process of adding items to the list
+     **/
+    private void applyAndAnimateAdditions(List<JSONParser> newModels) {
+        for (int i = 0, count = newModels.size(); i < count; i++) {
+            final JSONParser model = newModels.get(i);
+            if (!this.products.contains(model)) {
+                addItem(i, model);
+            }
+        }
+    }
+
+    /**
+     * Animates the process of moving items about in the list
+     **/
+    private void applyAndAnimateMovedItems(List<JSONParser> newModels) {
+        for (int toPosition = newModels.size() - 1; toPosition >= 0; toPosition--) {
+            final JSONParser model = newModels.get(toPosition);
+            final int fromPosition = this.products.indexOf(model);
+            if (fromPosition >= 0 && fromPosition != toPosition) {
+                moveItem(fromPosition, toPosition);
+            }
+        }
+    }
+
+    /**
+     * Removes an item from the list and notifies the adapter
+     **/
+    public JSONParser removeItem(int position) {
+        final JSONParser jsonParser = this.products.remove(position);
+        notifyItemRemoved(position);
+        return jsonParser;
+    }
+
+    /**
+     * Adds a new item to the list and notifies the adapter
+     **/
+    public void addItem(int postion, JSONParser jsonParser) {
+        this.products.add(postion, jsonParser);
+        notifyItemInserted(postion);
+    }
+
+    /**
+     * Changes the position of an item in the list and notifies the adapter
+     **/
+    public void moveItem(int fromPosition, int toPosition) {
+        final JSONParser jsonParser = this.products.remove(fromPosition);
+        this.products.add(toPosition, jsonParser);
+        notifyItemMoved(fromPosition, toPosition);
     }
 
     /**
@@ -211,6 +316,38 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.Pr
             oldPriceText.setPaintFlags(oldPriceText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             newPriceText.setText(newPrice);
         }
+    }
+
+    /**
+     * Compare it to the items already present in the Cart to check if it's a duplicate item
+     **/
+    private boolean containsDuplicateProduct(String dealKey) {
+        boolean duplicateProduct = false;
+        String cartDealKey;
+        // Get the list of all items in the Cart Database
+        List<CartDatabase> allProducts = CartDatabase.listAll(CartDatabase.class);
+        List<JSONParser> cartList = new ArrayList<JSONParser>();
+
+        // Search through the List
+        for (int i = 0; i < allProducts.size(); i++) {
+            try {
+                String data = allProducts.get(i).getData();
+                JSONObject parser = new JSONObject(data);
+
+                cartList.add(new JSONParser(parser));
+
+                // Finds the deal_key of all the products in the cart and compares it to the new one
+                cartDealKey = String.valueOf(cartList.get(i).getProperty(Dictionary.dealKey).toString());
+
+                if (dealKey.equals(cartDealKey)) {
+                    duplicateProduct = true;
+                    break;
+                }
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return duplicateProduct;
     }
 
     public static class ProductsViewHolder extends RecyclerView.ViewHolder {
@@ -232,7 +369,5 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.Pr
             popupMenuAnchor = (ImageButton) itemView.findViewById(R.id.popupmenu);
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
         }
-
     }
-
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -48,6 +49,28 @@ public class CartDetailsActivity extends BaseToolbarActivity {
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDarker));
         }
 
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Go back to the list of products if the activity is the product activity
+                Class activityName = (Class<?>) getIntent().getExtras().get("activity_name");
+
+                if (activityName == ProductDetailsActivity.class) {
+                    Intent i = new Intent(CartDetailsActivity.this, AllProductsActivity.class);
+                    startActivity(i);
+                    finish();
+                } else if (activityName == HomeActivity.class) {
+                    Intent i = new Intent(CartDetailsActivity.this, (Class<?>) getIntent().getExtras().get("activity_name"));
+                    startActivity(i);
+                    finish();
+                } else {
+                    // Intent i = new Intent(CartDetailsActivity.this, (Class<?>) getIntent().getExtras().get("activity_name"));
+                    // startActivity(i);
+                    finish();
+                }
+            }
+        });
+
         cartContinue = (Button) rootView.findViewById(R.id.cart_continue);
         cartCheckout = (Button) rootView.findViewById(R.id.cart_checkout);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.cart_recycler_view);
@@ -56,12 +79,11 @@ public class CartDetailsActivity extends BaseToolbarActivity {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        cartAdapter = new CartAdapter(this, cartList, mToolbar);
+        cartAdapter = new CartAdapter(this, cartList, mToolbar, (Class<?>) getIntent().getExtras().get("activity_name"));
 
         displayCart(cartList);
 
         mRecyclerView.setAdapter(cartAdapter);
-
     }
 
     /**
@@ -80,7 +102,7 @@ public class CartDetailsActivity extends BaseToolbarActivity {
 
             // Loads all the products in the cart into a list
             List<CartDatabase> cartData = CartDatabase.listAll(CartDatabase.class);
-            long currentPrice = 0;
+            Double currentPrice = 0.0;
 
             for (int i = 0; i < count; i++) {
                 try {
@@ -90,14 +112,17 @@ public class CartDetailsActivity extends BaseToolbarActivity {
                     cartList.add(new JSONParser(parser));
 
                     // Finds the total price of all the products in the cart
-                    currentPrice += Long.valueOf(cartList.get(i).getProperty(Dictionary.dealValue).toString());
-
+                    if (cartList.get(i).getProperty(Dictionary.dealValue).toString().equals("Not found")) {
+                        currentPrice += Double.valueOf(cartList.get(i).getProperty(Dictionary.productValue).toString());
+                    } else {
+                        currentPrice += Double.valueOf(cartList.get(i).getProperty(Dictionary.dealValue).toString());
+                    }
                 } catch (JSONException ex) {
                     ex.printStackTrace();
                 }
             }
 
-            long currentPriceCount = PriceDatabase.count(PriceDatabase.class, null, null);
+            // long currentPriceCount = PriceDatabase.count(PriceDatabase.class, null, null);
 
             // Clear all prices from the database
             PriceDatabase.deleteAll(PriceDatabase.class);
@@ -106,8 +131,7 @@ public class CartDetailsActivity extends BaseToolbarActivity {
             PriceDatabase priceDatabase = new PriceDatabase(currentPrice);
             priceDatabase.save();
 
-            cartAdapter = new CartAdapter(this, cartList, mToolbar);
-
+            cartAdapter = new CartAdapter(this, cartList, mToolbar, (Class<?>) getIntent().getExtras().get("activity_name"));
             cartAdapter.notifyDataSetChanged();
         }
     }
@@ -135,5 +159,4 @@ public class CartDetailsActivity extends BaseToolbarActivity {
 
         }
     }
-
 }

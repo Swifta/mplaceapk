@@ -178,7 +178,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     /**
-     * Creates intent to transfer data into new activity
+     * Creates an intent to transfer data into new activity
      */
     private void createNewIntent(ArrayList<String> subCategoryId,
                                  ArrayList<String> subCategoryName,
