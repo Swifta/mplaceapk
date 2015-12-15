@@ -440,9 +440,15 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
     @Override
     public void onRestart() {
         super.onRestart();
-        cartTextView.setText(String.valueOf(HomeActivity.cartCount));
-        wishlistTextView.setText(String.valueOf(HomeActivity.wishlistCount));
-        compareTextView.setText(String.valueOf(HomeActivity.compareCount));
+        try {
+            cartTextView.setText(String.valueOf(cartCount));
+            wishlistTextView.setText(String.valueOf(wishlistCount));
+            compareTextView.setText(String.valueOf(compareCount));
+        } catch (NullPointerException ex) {
+            cartTextView.setText("0");
+            wishlistTextView.setText("0");
+            compareTextView.setText("0");
+        }
     }
 
     @Override
