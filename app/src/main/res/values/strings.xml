@@ -172,9 +172,9 @@
     <!-- Cart details Activity -->
     <string name="subtotal">Sub Total = </string>
     <string name="grand_total">Grand Total</string>
-    <string name="cart_continue">Continue</string>
+    <string name="cart_continue">Continue Shopping</string>
     <string name="checkout">Checkout</string>
-    <string name="delete">Delete</string>
+    <string name="delete">Remove</string>
     <string name="update">Update</string>
     <string name="quantity">Quantity</string>
     <string name="update_error">Please enter a number greater than 0</string>
