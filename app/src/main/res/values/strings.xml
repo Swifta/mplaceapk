@@ -43,7 +43,7 @@
     <string name="close_drawer">Close</string>
 
     <!-- Home Activity -->
-    <string name="welcome_text">Welcome to Marketplace!</string>
+    <string name="welcome_text">Welcome to Zmart!</string>
     <string name="already_a_customer">Already a customer?</string>
     <string name="new_to_marketplace">New to Marketplace?</string>
     <string name="sign_in">Sign In</string>

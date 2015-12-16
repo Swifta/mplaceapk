@@ -45,54 +45,82 @@
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
+    </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/description"
-            android:textSize="15sp" />
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/eight_dp"
+        android:layout_marginRight="@dimen/eight_dp"
+        android:layout_marginTop="@dimen/eight_dp"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="@dimen/four_dp"
+        card_view:cardPreventCornerOverlap="true"
+        card_view:cardUseCompatPadding="true">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/product_description_cardview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            card_view:cardCornerRadius="@dimen/four_dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/detail_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/eight_dp"
                 android:text="@string/description"
-                android:textSize="13sp" />
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-        </android.support.v7.widget.CardView>
+            <View style="@style/Divider" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/more_details"
-            android:textSize="15sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:padding="@dimen/eight_dp">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/product_details_cardview"
+                <TextView
+                    android:id="@+id/detail_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/four_dp"
+                    android:text="@string/description"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/eight_dp"
+        android:layout_marginRight="@dimen/eight_dp"
+        android:layout_marginTop="@dimen/eight_dp"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="@dimen/four_dp"
+        card_view:cardPreventCornerOverlap="true"
+        card_view:cardUseCompatPadding="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            card_view:cardCornerRadius="@dimen/four_dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/eight_dp"
+                android:text="@string/more_details"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <View style="@style/Divider" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -235,27 +263,36 @@
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
-        </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/eight_dp"
+        android:layout_marginRight="@dimen/eight_dp"
+        android:layout_marginTop="@dimen/eight_dp"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="@dimen/four_dp"
+        card_view:cardPreventCornerOverlap="true"
+        card_view:cardUseCompatPadding="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/store_info"
-            android:textSize="15sp" />
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/store_info_cardview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            card_view:cardCornerRadius="@dimen/four_dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/eight_dp"
+                android:text="@string/store_info"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <View style="@style/Divider" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -299,9 +336,11 @@
 
                     <Button
                         android:id="@+id/view_detail"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/eight_dp"
+                        android:layout_marginEnd="@dimen/eight_dp"
+                        android:layout_marginRight="@dimen/eight_dp"
                         android:layout_marginTop="@dimen/eight_dp"
                         android:background="@drawable/red_button_selector"
                         android:clickable="false"
@@ -312,10 +351,8 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-    </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
         android:id="@+id/similar_product_cardview"
@@ -323,6 +360,7 @@
         android:layout_height="@dimen/three_twenty_dp"
         android:layout_gravity="center"
         android:layout_margin="@dimen/eight_dp"
+        card_view:cardBackgroundColor="@android:color/white"
         card_view:cardCornerRadius="@dimen/four_dp"
         card_view:cardPreventCornerOverlap="true"
         card_view:cardUseCompatPadding="true">
@@ -339,7 +377,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_margin="@dimen/eight_dp"
                     android:layout_weight="1"
                     android:text="@string/similar_products"
