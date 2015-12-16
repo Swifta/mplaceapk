@@ -154,6 +154,13 @@
                     android:focusableInTouchMode="false"
                     android:hint="@string/shipping_country"
                     android:inputType="textCapWords" />
+
+                <Spinner
+                    android:id="@+id/select_shipping_country"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <View style="@style/Divider" />
@@ -210,6 +217,13 @@
                     android:focusableInTouchMode="false"
                     android:hint="@string/shipping_city"
                     android:inputType="textCapWords" />
+
+                <Spinner
+                    android:id="@+id/select_shipping_city"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <View style="@style/Divider" />

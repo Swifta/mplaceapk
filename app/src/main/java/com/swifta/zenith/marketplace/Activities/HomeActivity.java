@@ -40,6 +40,7 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
     public static int cartCount = 0;
     public static int wishlistCount = 0;
     public static int compareCount = 0;
+    private static View cartBadgeLayout;
     private static TextView cartTextView;
     private static TextView wishlistTextView;
     private static TextView compareTextView;
@@ -405,7 +406,7 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
         getMenuInflater().inflate(R.menu.menu_home, menu);
 
         // Sets up the cart count menu item
-        View cartBadgeLayout = MenuItemCompat.getActionView(menu.findItem(R.id.cart_badge));
+        cartBadgeLayout = MenuItemCompat.getActionView(menu.findItem(R.id.cart_badge));
         cartTextView = (TextView) cartBadgeLayout.findViewById(R.id.cart_count_text);
         cartTextView.setText(String.valueOf(HomeActivity.cartCount));
 
@@ -445,9 +446,7 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
             wishlistTextView.setText(String.valueOf(wishlistCount));
             compareTextView.setText(String.valueOf(compareCount));
         } catch (NullPointerException ex) {
-            cartTextView.setText("0");
-            wishlistTextView.setText("0");
-            compareTextView.setText("0");
+            ex.printStackTrace();
         }
     }
 

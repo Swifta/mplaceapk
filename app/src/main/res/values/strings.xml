@@ -141,7 +141,7 @@
     <string name="discount">Discount:</string>
     <string name="size">Size:</string>
     <string name="similar_products">Similar products</string>
-    <string name="shipping_type">Shipping Type:</string>
+    <string name="shipping_type">Shipping Information:</string>
     <string name="category">Category</string>
     <string name="time_left">Time remaining:</string>
     <string name="description">Description</string>

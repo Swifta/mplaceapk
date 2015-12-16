@@ -2,8 +2,22 @@
 <project version="4">
   <component name="AndroidLayouts">
     <shared>
-      <config />
+      <config>
+        <devices>
+          <device id="Nexus 6" />
+          <device id="Nexus 9" />
+          <device id="Nexus 6P" />
+          <device id="Nexus 5X" />
+        </devices>
+      </config>
     </shared>
+    <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_shipping.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+    </layouts>
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
@@ -16,7 +30,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/outputFileStates.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/cart_recycler_view.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/cart_recycler_view.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/HomeActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/HomeActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/ShippingActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/ShippingActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_shipping.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_shipping.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -119,29 +136,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="cart_recycler_view.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/cart_recycler_view.xml">
-          <provider selected="true" editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.6666666">
-              <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-              <folding>
-                <element signature="e#1344#1377#0" expanded="true" />
-                <element signature="e#3105#3121#0" expanded="true" />
-                <element signature="e#3566#3582#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <file leaf-file-name="ShippingActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/ShippingActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.6851852">
-              <caret line="176" column="32" selection-start-line="176" selection-start-column="32" selection-end-line="176" selection-end-column="32" />
-              <folding />
+            <state vertical-scroll-proportion="7.2982063">
+              <caret line="242" column="0" selection-start-line="242" selection-start-column="0" selection-end-line="242" selection-end-column="0" />
+              <folding>
+                <element signature="e#2004#2012#0" expanded="true" />
+                <element signature="e#2070#2078#0" expanded="true" />
+                <element signature="e#4439#14630#0" expanded="true" />
+                <element signature="e#8541#12105#0" expanded="true" />
+                <element signature="e#11558#11582#0" expanded="true" />
+                <element signature="e#12104#12105#0" expanded="true" />
+                <element signature="e#12272#14550#0" expanded="true" />
+                <element signature="e#14549#14550#0" expanded="true" />
+                <element signature="e#14629#14630#0" expanded="true" />
+                <element signature="method#enableEditText#0;class#ShippingActivity#0" expanded="false" />
+                <element signature="method#disableAllEditTexts#0;class#ShippingActivity#0" expanded="false" />
+                <element signature="e#16983#19121#0" expanded="true" />
+                <element signature="e#17227#17259#0" expanded="true" />
+                <element signature="e#17307#17336#0" expanded="true" />
+                <element signature="e#19120#19121#0" expanded="true" />
+                <element signature="e#20360#20512#0" expanded="true" />
+                <element signature="e#20511#20512#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -150,9 +168,10 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/HomeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="449" column="41" selection-start-line="449" selection-start-column="41" selection-end-line="449" selection-end-column="41" />
+              <caret line="427" column="47" selection-start-line="427" selection-start-column="47" selection-end-line="427" selection-end-column="47" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#3005#3006#0" expanded="true" />
+                <element signature="e#3068#3069#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1632,9 +1651,12 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Adapters/CategoryAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Adapters/ProductsAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Adapters/SimilarProductsAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/HomeActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/cart_recycler_view.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/RegisterActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_shipping.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/HomeActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/ShippingActivity.java" />
       </list>
     </option>
   </component>
@@ -1652,8 +1674,7 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="657" />
-    <option name="width" value="623" />
+    <option name="width" value="1280" />
     <option name="height" value="800" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -1686,24 +1707,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Marketplace" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Marketplace" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1768,28 +1771,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="marketplace" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Marketplace" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="marketplace" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Activities" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2034,8 +2015,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="657" y="0" width="623" height="800" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2043,7 +2024,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.535" sideWeight="0.7839416" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5524079" sideWeight="0.7839416" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -2053,13 +2034,13 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20826162" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14458804" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901135" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37349397" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32892805" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3723748" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3286119" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2087,63 +2068,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Fragments/AllProductFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="245" column="0" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
-          <folding>
-            <element signature="method#displayCartCount#0;class#AllProductFragment#0" expanded="false" />
-            <element signature="method#displayWishlistCount#0;class#AllProductFragment#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Adapters/SimilarProductsAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="228" column="4" selection-start-line="228" selection-start-column="4" selection-end-line="228" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Fragments/AllProductFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="245" column="0" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
-          <folding>
-            <element signature="method#displayCartCount#0;class#AllProductFragment#0" expanded="false" />
-            <element signature="method#displayWishlistCount#0;class#AllProductFragment#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Adapters/SimilarProductsAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Fragments/AllProductFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="245" column="0" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
-          <folding>
-            <element signature="method#displayCartCount#0;class#AllProductFragment#0" expanded="false" />
-            <element signature="method#displayWishlistCount#0;class#AllProductFragment#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Adapters/SimilarProductsAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Fragments/AllProductFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2374,14 +2298,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/ProductDetailsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.1902654">
-          <caret line="335" column="36" selection-start-line="335" selection-start-column="36" selection-end-line="335" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Fragments/NearProductsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="4.4955754">
@@ -2506,21 +2422,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Utils/Utility.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.6851852">
-          <caret line="176" column="32" selection-start-line="176" selection-start-column="32" selection-end-line="176" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.44656488">
+          <caret line="18" column="35" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/HomeActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/ProductDetailsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="449" column="41" selection-start-line="449" selection-start-column="41" selection-end-line="449" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="335" column="36" selection-start-line="335" selection-start-column="36" selection-end-line="335" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_product_details.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.5535715">
+          <caret line="188" column="59" selection-start-line="188" selection-start-column="46" selection-end-line="188" selection-end-column="59" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2535,6 +2460,119 @@
             <element signature="e#1344#1377#0" expanded="true" />
             <element signature="e#3105#3121#0" expanded="true" />
             <element signature="e#3566#3582#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="178" column="35" selection-start-line="178" selection-start-column="35" selection-end-line="178" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/RegisterActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27138644">
+          <caret line="197" column="43" selection-start-line="197" selection-start-column="43" selection-end-line="197" selection-end-column="43" />
+          <folding>
+            <element signature="e#2305#2313#0" expanded="true" />
+            <element signature="e#6930#6954#0" expanded="true" />
+            <element signature="e#7790#7821#0" expanded="true" />
+            <element signature="e#7857#7880#0" expanded="true" />
+            <element signature="e#7970#7981#0" expanded="true" />
+            <element signature="e#10442#10476#0" expanded="true" />
+            <element signature="e#10615#10646#0" expanded="true" />
+            <element signature="e#10648#10685#0" expanded="true" />
+            <element signature="e#10843#10877#0" expanded="true" />
+            <element signature="e#10879#10919#0" expanded="true" />
+            <element signature="e#11129#11171#0" expanded="true" />
+            <element signature="e#11173#11215#0" expanded="true" />
+            <element signature="e#11379#11422#0" expanded="true" />
+            <element signature="e#11839#11874#0" expanded="true" />
+            <element signature="e#12041#12075#0" expanded="true" />
+            <element signature="e#12247#12268#0" expanded="true" />
+            <element signature="e#12429#12453#0" expanded="true" />
+            <element signature="e#12624#12656#0" expanded="true" />
+            <element signature="e#12837#12859#0" expanded="true" />
+            <element signature="e#13011#13030#0" expanded="true" />
+            <element signature="e#13151#13171#0" expanded="true" />
+            <element signature="e#13475#13627#0" expanded="true" />
+            <element signature="e#13626#13627#0" expanded="true" />
+            <element signature="method#getCountryList#0;class#RegisterActivity#0" expanded="false" />
+            <element signature="e#14005#16123#0" expanded="true" />
+            <element signature="e#14249#14281#0" expanded="true" />
+            <element signature="e#14329#14358#0" expanded="true" />
+            <element signature="e#16122#16123#0" expanded="true" />
+            <element signature="method#submitData#0;class#RegisterActivity#0" expanded="false" />
+            <element signature="e#16441#16497#0" expanded="true" />
+            <element signature="e#18047#18058#0" expanded="true" />
+            <element signature="e#18829#18854#0" expanded="true" />
+            <element signature="e#19733#19759#0" expanded="true" />
+            <element signature="e#19889#19907#0" expanded="true" />
+            <element signature="e#20338#20349#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_shipping.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.551724">
+          <caret line="261" column="39" selection-start-line="261" selection-start-column="39" selection-end-line="261" selection-end-column="39" />
+          <folding>
+            <element signature="e#7043#8155#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.4731183">
+          <caret line="140" column="20" selection-start-line="140" selection-start-column="20" selection-end-line="140" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/HomeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="427" column="47" selection-start-line="427" selection-start-column="47" selection-end-line="427" selection-end-column="47" />
+          <folding>
+            <element signature="e#3005#3006#0" expanded="true" />
+            <element signature="e#3068#3069#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/swifta/zenith/marketplace/Activities/ShippingActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="7.2982063">
+          <caret line="242" column="0" selection-start-line="242" selection-start-column="0" selection-end-line="242" selection-end-column="0" />
+          <folding>
+            <element signature="e#2004#2012#0" expanded="true" />
+            <element signature="e#2070#2078#0" expanded="true" />
+            <element signature="e#4439#14630#0" expanded="true" />
+            <element signature="e#8541#12105#0" expanded="true" />
+            <element signature="e#11558#11582#0" expanded="true" />
+            <element signature="e#12104#12105#0" expanded="true" />
+            <element signature="e#12272#14550#0" expanded="true" />
+            <element signature="e#14549#14550#0" expanded="true" />
+            <element signature="e#14629#14630#0" expanded="true" />
+            <element signature="method#enableEditText#0;class#ShippingActivity#0" expanded="false" />
+            <element signature="method#disableAllEditTexts#0;class#ShippingActivity#0" expanded="false" />
+            <element signature="e#16983#19121#0" expanded="true" />
+            <element signature="e#17227#17259#0" expanded="true" />
+            <element signature="e#17307#17336#0" expanded="true" />
+            <element signature="e#19120#19121#0" expanded="true" />
+            <element signature="e#20360#20512#0" expanded="true" />
+            <element signature="e#20511#20512#0" expanded="true" />
           </folding>
         </state>
       </provider>
