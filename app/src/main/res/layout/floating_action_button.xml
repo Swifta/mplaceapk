@@ -12,26 +12,28 @@
     app:elevation="6dp"
     app:fab_addButtonColorNormal="@color/colorAccent"
     app:fab_addButtonColorPressed="@color/light_gray"
+    app:fab_labelStyle="@style/menu_labels_style"
     app:fab_labelsPosition="left"
     app:pressedTranslationZ="12dp"
-    fab:fab_addButtonPlusIconColor="@color/colorAccent"
-    fab:fab_addButtonSize="mini"
-    fab:fab_labelsPosition="left">
+    fab:fab_addButtonSize="mini">
 
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_wishlist"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:fab_title="Add to wishlist" />
 
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_compare"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:fab_title="Add to compare list" />
 
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_cart"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:fab_title="Add to cart" />
 
 </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

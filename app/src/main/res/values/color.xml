@@ -11,6 +11,7 @@
     <color name="secondary_text_light_nodisable">#eeeeee</color>
     <color name="light_gray">#49333333</color>
     <color name="very_light_gray">#249d9d9d</color>
+    <color name="black_semi_transparent">#B2000000</color>
 
 
 </resources>

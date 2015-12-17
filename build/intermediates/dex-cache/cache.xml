@@ -37,18 +37,18 @@
         <dex dex="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/pre-dexed/debug/classes-6845c3ab7f80d7897166cca14c73a6834fd32d46.jar" />
     </item>
     <item
-        jar="/Users/moyinoluwa/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
-        <dex dex="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/pre-dexed/debug/picasso-2.5.2-2481aece027535d18821683c802d12a310ea48a3.jar" />
-    </item>
-    <item
         jar="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/exploded-aar/com.android.support/design/23.1.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="19026d31f5d3ae868db81319671a642be5fbba08">
         <dex dex="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/pre-dexed/debug/classes-d2ec9ad433b3d476136eea9b161e6cf4808fcd8c.jar" />
+    </item>
+    <item
+        jar="/Users/moyinoluwa/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/pre-dexed/debug/picasso-2.5.2-2481aece027535d18821683c802d12a310ea48a3.jar" />
     </item>
     <item
         jar="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/exploded-aar/com.getbase/floatingactionbutton/1.10.1/jars/classes.jar"
@@ -72,11 +72,11 @@
         <dex dex="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/pre-dexed/debug/classes-bd41ad094512d5607ca6369bf8c9ddd462f6a990.jar" />
     </item>
     <item
-        jar="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/exploded-aar/com.github.satyan/sugar/1.3.1/jars/classes.jar"
+        jar="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.1.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="d59de211e85bc8c7f75c7a4890d229ff8c4dab87">
-        <dex dex="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/pre-dexed/debug/classes-7afe9df7457876eb6a0f06ec8956b8ef01788fbc.jar" />
+        sha1="3aed37c38c56679602255dd72ef356da5d327cda">
+        <dex dex="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/pre-dexed/debug/classes-ae83d552cc6494829b16a85b21210ba5b65851fe.jar" />
     </item>
     <item
         jar="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/jars/classes.jar"
@@ -86,11 +86,11 @@
         <dex dex="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/pre-dexed/debug/classes-efafd4a06e16465265ce84c5abeb4b35d15d57ad.jar" />
     </item>
     <item
-        jar="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.1.0/jars/classes.jar"
+        jar="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/exploded-aar/com.github.satyan/sugar/1.3.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="3aed37c38c56679602255dd72ef356da5d327cda">
-        <dex dex="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/pre-dexed/debug/classes-ae83d552cc6494829b16a85b21210ba5b65851fe.jar" />
+        sha1="d59de211e85bc8c7f75c7a4890d229ff8c4dab87">
+        <dex dex="/Users/moyinoluwa/Documents/SwiftaAndroidStudioProjects/Marketplace/app/build/intermediates/pre-dexed/debug/classes-7afe9df7457876eb6a0f06ec8956b8ef01788fbc.jar" />
     </item>
     <item
         jar="/Users/moyinoluwa/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3/5fc52c41ef0239d1093a1eb7c3697036183677ce/gson-2.3.jar"

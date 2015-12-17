@@ -156,9 +156,9 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
             }
         }
 
-        setFloatingActionButtonProperties(compareFloatingActionButton, R.drawable.ic_compare, "Add to compare list");
-        setFloatingActionButtonProperties(cartFloatingActionButton, R.drawable.ic_add_shopping_cart_white, "Add to cart");
-        setFloatingActionButtonProperties(wishlistFloatingActionButton, R.drawable.ic_wishlist, "Add to wishlist");
+        setFloatingActionButtonProperties(compareFloatingActionButton, R.drawable.ic_compare);
+        setFloatingActionButtonProperties(cartFloatingActionButton, R.drawable.ic_add_shopping_cart_white);
+        setFloatingActionButtonProperties(wishlistFloatingActionButton, R.drawable.ic_wishlist);
 
         wishlistFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -493,7 +493,6 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
                                 } catch (NullPointerException ex) {
                                     ex.printStackTrace();
                                 }
-
                             }
                         }
                     });
@@ -572,12 +571,12 @@ public class ProductDetailsActivity extends BaseToolbarActivity {
     /**
      * Sets the properties of the FloatingActionButtons from the library used
      */
-    private void setFloatingActionButtonProperties(FloatingActionButton fab, int drawable, String title) {
+    private void setFloatingActionButtonProperties(FloatingActionButton fab, int drawable) {
         fab.setSize(FloatingActionButton.SIZE_MINI);
         fab.setColorNormalResId(R.color.colorAccent);
         fab.setColorPressedResId(R.color.light_gray);
         fab.setIcon(drawable);
-        fab.setTitle(title);
+        ;
     }
 
     /**
