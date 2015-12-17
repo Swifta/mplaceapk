@@ -56,6 +56,7 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
     private DealsAdapter dealsAdapter;
     private AuctionsAdapter auctionsAdapter;
     private MenuItem hMenuItem;
+    private TextView welcomeText;
     private TextView noProducts;
     private TextView noDeals;
     private TextView noAuctions;
@@ -109,6 +110,7 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
             hMenuItem.setChecked(true);
         }
 
+        welcomeText = (TextView) homeView.findViewById(R.id.welcome_text);
         mRecyclerView = (RecyclerView) homeView.findViewById(R.id.shop_all_products_recycler_view);
         dealsRecyclerView = (RecyclerView) homeView.findViewById(R.id.deals_recycler_view);
         auctionsRecyclerView = (RecyclerView) homeView.findViewById(R.id.auctions_recycler_view);
@@ -138,6 +140,7 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
             // Also sets the welcome text to the username
             SharedPreferences preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
             String username = preferences.getString("username", "");
+            welcomeText.setText(username);
             drawer_name.setText(username);
         } else {
             // Clears the database
@@ -375,7 +378,7 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
                                                 JSONObject jsonObject = new JSONObject(result_inner.toString());
                                                 auctions.add(new JSONParser(jsonObject));
                                             } catch (JSONException exception) {
-
+                                                exception.printStackTrace();
                                             }
                                             auctionsAdapter.notifyDataSetChanged();
                                             break;
@@ -396,7 +399,6 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
         } else {
             networkConnection.displayAlert();
         }
-
     }
 
     @Override

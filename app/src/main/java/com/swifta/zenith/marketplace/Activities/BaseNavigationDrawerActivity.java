@@ -41,6 +41,7 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
     protected ActionBarDrawerToggle mActionBarDrawerToggle;
     protected NestedScrollView mNestedScrollView;
     protected Menu menu;
+    private View headerView;
     protected TabLayout mTabLayout;
     protected TextView drawer_name;
     protected TextView drawer_sign_in;
@@ -65,15 +66,17 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDarker));
         }
 
-        View navigationHeaderView = getLayoutInflater().inflate(R.layout.navigation_header, null);
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_coordinator_layout);
         mNestedScrollView = (NestedScrollView) findViewById(R.id.scrollView_content_frame);
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-        drawer_name = (TextView) navigationHeaderView.findViewById(R.id.drawer_name);
-        drawer_sign_in = (TextView) navigationHeaderView.findViewById(R.id.drawer_sign_in);
-        drawer_sign_out = (TextView) navigationHeaderView.findViewById(R.id.drawer_sign_out);
+        // Latest way of getting Navigation Header views
+        headerView = mNavigationView.inflateHeaderView(R.layout.navigation_header);
+        drawer_name = (TextView) headerView.findViewById(R.id.drawer_name);
+        drawer_sign_in = (TextView) headerView.findViewById(R.id.drawer_sign_in);
+        drawer_sign_out = (TextView) headerView.findViewById(R.id.drawer_sign_out);
+
         menu = mNavigationView.getMenu();
         mChromeTabsCreator = new ChromeTabsCreator();
 
@@ -86,7 +89,7 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
         if (SIGNED_IN) {
             mNavigationView.getMenu().removeItem(R.id.navigation_subheader_2_1);
             drawer_name.setVisibility(View.VISIBLE);
-            drawer_name.setText("Welcome back, " + Session.getEmail(this));
+            drawer_name.setText("Welcome, " + Session.getEmail(this));
 
             drawer_sign_in.setVisibility(View.GONE);
             drawer_sign_out.setVisibility(View.VISIBLE);
