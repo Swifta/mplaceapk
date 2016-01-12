@@ -6,9 +6,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,8 +20,21 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookRequestError;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -26,14 +43,29 @@ import com.swifta.zenith.marketplace.R;
 import com.swifta.zenith.marketplace.Utils.NetworkConnection;
 import com.swifta.zenith.marketplace.Utils.TextVerifier;
 import com.swifta.zenith.marketplace.Utils.Utility;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
+import org.json.JSONObject;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.Signature;
 import java.util.ArrayList;
+
+import io.fabric.sdk.android.Fabric;
 
 public class RegisterActivity extends BaseToolbarActivity {
 
     private static final String URL = "en";
     private static SharedPreferences.Editor editor;
     View registerView;
+    private LinearLayout registerOption;
     private LinearLayout registerOne;
     private LinearLayout registerTwo;
     private Spinner registerGender;
@@ -56,6 +88,8 @@ public class RegisterActivity extends BaseToolbarActivity {
     private EditText registerFirstname;
     private EditText registerLastname;
     private EditText registerMobileNumber;
+    private TextView signUpOptionText;
+    private LoginButton facebookLoginButton;
     private CheckBox registerAgree;
     private ArrayList<String> cityName = new ArrayList<String>();
     private ArrayList<String> countryName = new ArrayList<String>();
@@ -68,15 +102,32 @@ public class RegisterActivity extends BaseToolbarActivity {
     private ProgressDialog progressDialog;
     private String selectedCityId;
     private SharedPreferences preferences;
+    private CallbackManager callbackManager;
+    private AccessToken accessToken;
+    private TwitterLoginButton twitterLoginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Initiaizes the connection to the Facebook SDK from this Activity
+        FacebookSdk.sdkInitialize(this);
+        callbackManager = CallbackManager.Factory.create();
+
+        String consumerKey = getResources().getString(R.string.twitter_consumer_key);
+        String consumerSecret = getResources().getString(R.string.twitter_consumer_secret);
+
+        // Initializes the connection to the Twitter SDK
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(consumerKey, consumerSecret);
+        Fabric.with(this, new Twitter(authConfig));
+
         // Inflates RegisterActivity's layout into the parent's layout
         registerView = getLayoutInflater().inflate(R.layout.activity_register, mNestedScrollView);
 
+        registerOption = (LinearLayout) registerView.findViewById(R.id.register_option);
         registerOne = (LinearLayout) registerView.findViewById(R.id.register_one);
         registerTwo = (LinearLayout) registerView.findViewById(R.id.register_two);
+        signUpOptionText = (TextView) registerView.findViewById(R.id.sign_up_option_text);
         usernameTextInputLayout = (TextInputLayout) registerView.findViewById(R.id.username_textinputlayout);
         emailTextInputLayout = (TextInputLayout) registerView.findViewById(R.id.email_textinputlayout);
         passwordTextInputLayout = (TextInputLayout) registerView.findViewById(R.id.password_textinputlayout);
@@ -97,12 +148,13 @@ public class RegisterActivity extends BaseToolbarActivity {
         registerAgeRange = (Spinner) registerView.findViewById(R.id.register_age_range);
         registerCountry = (Spinner) registerView.findViewById(R.id.register_country);
         registerCity = (Spinner) registerView.findViewById(R.id.register_city);
+        facebookLoginButton = (LoginButton) registerView.findViewById(R.id.facebook_login_button);
         registerAgree = (CheckBox) registerView.findViewById(R.id.register_agree);
+        twitterLoginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
         networkConnection = new NetworkConnection(RegisterActivity.this);
         preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         editor = preferences.edit();
         textVerifier = new TextVerifier(this);
-
 
         // Sets the Back button on the Toolbar to HomeActivity
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -111,6 +163,64 @@ public class RegisterActivity extends BaseToolbarActivity {
                 Intent i = new Intent(RegisterActivity.this, HomeActivity.class);
                 startActivity(i);
                 finish();
+            }
+        });
+
+        // Sets the permissions to be asked from the user
+        facebookLoginButton.setReadPermissions("public_profile", "email");
+
+        facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                if (response.getError() != null) {
+                                    Toast.makeText(RegisterActivity.this, "Could not get user's details.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // Id not needed yet
+                                    // String id = object.optString("id");
+                                    // String email = object.optString("email");
+                                    String firstName = object.optString("first_name", "User");
+                                    performSuccessfulLoginAction("facebook", firstName);
+                                }
+                            }
+                        }
+                ).executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.e("Facebook Login", error.getMessage());
+            }
+        });
+
+        twitterLoginButton.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                TwitterSession session = result.data;
+                performSuccessfulLoginAction("twitter", session.getUserName());
+            }
+
+            @Override
+            public void failure(TwitterException e) {
+                Log.e("Twitterkit", "Login with Twitter failure", e);
+
+            }
+        });
+
+        signUpOptionText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerOption.setVisibility(View.GONE);
+                registerOne.setVisibility(View.VISIBLE);
             }
         });
 
@@ -139,6 +249,17 @@ public class RegisterActivity extends BaseToolbarActivity {
             createSnackbar(registerView, R.string.network_failure);
             networkConnection.displayAlert();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // For Facebook
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+
+        // For Twitter
+        twitterLoginButton.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
@@ -404,17 +525,7 @@ public class RegisterActivity extends BaseToolbarActivity {
                                         AlertDialog alertDialog = builder.create();
                                         alertDialog.show();
                                     } else {
-                                        // Saves the username to a SharedPrefrence for use in another activity
-                                        Toast.makeText(RegisterActivity.this, R.string.successful_login, Toast.LENGTH_SHORT)
-                                                .show();
-                                        BaseNavigationDrawerActivity.SIGNED_IN = true;
-                                        editor.putString("username", "Welcome, " + registerUsername.getText().toString());
-                                        editor.commit();
-
-                                        // Logs the user in directly
-                                        Intent i = new Intent(RegisterActivity.this, HomeActivity.class);
-                                        startActivity(i);
-                                        finish();
+                                        performSuccessfulLoginAction("email", registerUsername.getText().toString());
                                     }
                                 } else {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
@@ -449,6 +560,35 @@ public class RegisterActivity extends BaseToolbarActivity {
      */
     @Override
     public void onBackPressed() {
+        Intent i = new Intent(RegisterActivity.this, HomeActivity.class);
+        startActivity(i);
+        finish();
+    }
+
+    /**
+     * Performs this on successful user login
+     */
+    private void performSuccessfulLoginAction(String platform, String username) {
+        Toast.makeText(RegisterActivity.this, R.string.successful_login, Toast.LENGTH_SHORT)
+                .show();
+
+        switch (platform) {
+            case "email":
+                BaseNavigationDrawerActivity.EMAIL_SIGNED_IN = true;
+                break;
+            case "facebook":
+                BaseNavigationDrawerActivity.FACEBOOK_SIGNED_IN = true;
+                break;
+            case "twitter":
+                BaseNavigationDrawerActivity.TWITTER_SIGNED_IN = true;
+                break;
+        }
+
+        // Saves the username to a SharedPreference for use in another activity
+        editor.putString("username", "Welcome, " + username);
+        editor.commit();
+
+        // Logs the user in directly
         Intent i = new Intent(RegisterActivity.this, HomeActivity.class);
         startActivity(i);
         finish();

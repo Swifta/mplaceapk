@@ -13,9 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -31,6 +31,8 @@ import com.swifta.zenith.marketplace.Utils.Utility;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.facebook.FacebookSdk;
 
 import java.util.ArrayList;
 
@@ -98,6 +100,8 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FacebookSdk.sdkInitialize(this);
 
         // Inflates HomeActivity's layout into the parent's layout
         homeView = getLayoutInflater().inflate(R.layout.activity_home, mNestedScrollView);
@@ -450,6 +454,20 @@ public class HomeActivity extends BaseNavigationDrawerActivity {
         } catch (NullPointerException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override

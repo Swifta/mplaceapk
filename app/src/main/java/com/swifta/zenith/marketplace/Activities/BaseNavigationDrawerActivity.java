@@ -15,16 +15,28 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookRequestError;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginManager;
 import com.swifta.zenith.marketplace.R;
 import com.swifta.zenith.marketplace.Utils.ChromeTabsCreator;
 import com.swifta.zenith.marketplace.Utils.Session;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.internal.SessionProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +44,9 @@ import java.util.List;
 public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
 
     public static boolean SIGNED_IN = false;
+    public static boolean EMAIL_SIGNED_IN = false;
+    public static boolean FACEBOOK_SIGNED_IN = false;
+    public static boolean TWITTER_SIGNED_IN = false;
     protected static int position;
     final List<MenuItem> items = new ArrayList<>();
     protected Toolbar mToolbar;
@@ -57,6 +72,9 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
         // Child activities will also inherit this.
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_base);
+
+        // Initiaizes the connection to the Facebook SDK from this Activity
+        FacebookSdk.sdkInitialize(this);
 
         // Sets the status bar color
         Window window = getWindow();
@@ -86,7 +104,8 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
 
         // If the user is signed in, hide the welcome card and show the full menu
         // in the Navigation View. This applies to children activities too.
-        if (SIGNED_IN) {
+        if (EMAIL_SIGNED_IN || TWITTER_SIGNED_IN || FACEBOOK_SIGNED_IN) {
+            SIGNED_IN = true;
             mNavigationView.getMenu().removeItem(R.id.navigation_subheader_2_1);
             drawer_name.setVisibility(View.VISIBLE);
             drawer_name.setText("Welcome, " + Session.getEmail(this));
@@ -112,10 +131,27 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
         drawer_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (TWITTER_SIGNED_IN) {
+                    CookieSyncManager.createInstance(getApplicationContext());
+                    CookieManager cookieManager = CookieManager.getInstance();
+                    cookieManager.removeSessionCookie();
+                    Twitter.getSessionManager().clearActiveSession();
+                    Twitter.logOut();
+                }
+
+                if (FACEBOOK_SIGNED_IN) {
+                    performGraphRequest();
+                    LoginManager.getInstance().logOut();
+                }
+
                 // Clear all the data from the SharedPreferences
                 Session.clear(BaseNavigationDrawerActivity.this);
 
                 SIGNED_IN = false;
+                EMAIL_SIGNED_IN = false;
+                TWITTER_SIGNED_IN = false;
+                FACEBOOK_SIGNED_IN = false;
 
                 Intent i = new Intent(BaseNavigationDrawerActivity.this, HomeActivity.class);
                 startActivity(i);
@@ -155,6 +191,24 @@ public abstract class BaseNavigationDrawerActivity extends AppCompatActivity {
 
         // Calling Sync State is necessary if not hamburger icon won't show up
         mActionBarDrawerToggle.syncState();
+    }
+
+    public void performGraphRequest() {
+        GraphRequest graphRequest = new GraphRequest(AccessToken.getCurrentAccessToken(),
+                "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
+            @Override
+            public void onCompleted(GraphResponse response) {
+                if (response != null) {
+                    FacebookRequestError error = response.getError();
+                    if (error != null) {
+                        Log.e("Error", error.toString());
+                    } else {
+                        finish();
+                    }
+                }
+            }
+        });
+        graphRequest.executeAsync();
     }
 
     @Override
