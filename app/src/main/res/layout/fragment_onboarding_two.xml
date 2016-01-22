@@ -2,7 +2,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:scaleType="fitCenter"
+        android:src="@drawable/start_shopping" />
 
     <TextView
         android:layout_width="wrap_content"

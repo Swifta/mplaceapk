@@ -25,7 +25,7 @@ import com.swifta.zenith.marketplace.Utils.Session;
 
 public class OnboardingActivity extends AppCompatActivity {
 
-    static final int NUM_PAGES = 5;
+    static final int NUM_PAGES = 4;
 
     ViewPager pager;
     PagerAdapter pagerAdapter;
@@ -93,36 +93,26 @@ public class OnboardingActivity extends AppCompatActivity {
         pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //See note above for why this is needed
-                if (position == NUM_PAGES - 2 && positionOffset > 0) {
-                    if (isOpaque) {
-                        pager.setBackgroundColor(Color.TRANSPARENT);
-                        isOpaque = false;
-                    }
-                } else {
-                    if (!isOpaque) {
-                        //pager.setBackgroundColor(getResources().getColor(R.color.tutorial_background_opaque));
-                        // Here you can set the opacity between 0 (fully transparent) to 255 (completely opaque).
-                        pager.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                        pager.getBackground().setAlpha(100);
-                        isOpaque = true;
-                    }
+                if (!isOpaque) {
+                    //pager.setBackgroundColor(getResources().getColor(R.color.tutorial_background_opaque));
+                    // Here you can set the opacity between 0 (fully transparent) to 255 (completely opaque).
+                    pager.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    pager.getBackground().setAlpha(100);
+                    isOpaque = true;
                 }
             }
 
             @Override
             public void onPageSelected(int position) {
                 setIndicator(position);
-                if (position == NUM_PAGES - 2) {
+                if (position == NUM_PAGES - 1) {
                     skip.setVisibility(View.GONE);
                     next.setVisibility(View.GONE);
                     done.setVisibility(View.VISIBLE);
-                } else if (position < NUM_PAGES - 2) {
+                } else if (position < NUM_PAGES - 1) {
                     skip.setVisibility(View.VISIBLE);
                     next.setVisibility(View.VISIBLE);
                     done.setVisibility(View.GONE);
-                } else if (position == NUM_PAGES - 1) {
-                    endTutorial();
                 }
             }
 
@@ -131,7 +121,6 @@ public class OnboardingActivity extends AppCompatActivity {
                 //Unused
             }
         });
-
         buildCircles();
     }
 
@@ -209,11 +198,7 @@ public class OnboardingActivity extends AppCompatActivity {
                 case 3:
                     onboardingPane = OnboardingPane.newInstance(R.layout.fragment_onboarding_four);
                     break;
-                case 4:
-                    onboardingPane = OnboardingPane.newInstance(R.layout.fragment_transparent);
-                    break;
             }
-
             return onboardingPane;
         }
 
